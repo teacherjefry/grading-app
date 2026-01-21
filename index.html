@@ -346,15 +346,36 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, doc, getDocs, setDoc, addDoc, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- Firebase Configuration ---
-        const firebaseConfig = {
-  apiKey: "AIzaSyAVe3_P_rNkI7tvw3yPABvtAB6jI9y479A",
-  authDomain: "neerada-grading.firebaseapp.com",
-  projectId: "neerada-grading",
-  storageBucket: "neerada-grading.firebasestorage.app",
-  messagingSenderId: "375627658475",
-  appId: "1:375627658475:web:fd28e650d6afc8fcbf3aae"
-};
+        // --- Firebase Configuration & Initialization ---
+        let firebaseConfig, appId;
+
+        try {
+            // 1. Try Environment Config (Works automatically in this Preview/Canvas)
+            if (typeof __firebase_config !== 'undefined') {
+                firebaseConfig = JSON.parse(__firebase_config);
+                appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            } else {
+                throw new Error("Local environment detected");
+            }
+        } catch (e) {
+            // 2. Fallback Config (Works on GitHub Pages / Localhost)
+            firebaseConfig = {
+                apiKey: "AIzaSyAVe3_P_rNkI7tvw3yPABvtAB6jI9y479A",
+                authDomain: "neerada-grading.firebaseapp.com",
+                projectId: "neerada-grading",
+                storageBucket: "neerada-grading.firebasestorage.app",
+                messagingSenderId: "375627658475",
+                appId: "1:375627658475:web:fd28e650d6afc8fcbf3aae"
+            };
+            // Unique folder name for your deployed app data
+            appId = 'neerada-grading-v1'; 
+        }
+
+        // Initialize Firebase (This part was missing!)
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
         let userId = null;
         
         // --- App State ---
