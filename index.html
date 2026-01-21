@@ -4,13 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neerada School - K3 Grading System</title>
+    
+    <!-- Dynamic Favicons -->
+    <link rel="icon" id="app-favicon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <link rel="apple-touch-icon" id="app-apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: 'var(--c-50)',
+                            100: 'var(--c-100)',
+                            200: 'var(--c-200)',
+                            300: 'var(--c-300)',
+                            400: 'var(--c-400)',
+                            500: 'var(--c-500)',
+                            600: 'var(--c-600)',
+                            700: 'var(--c-700)',
+                            800: 'var(--c-800)',
+                            900: 'var(--c-900)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Inter:wght@400;600&display=swap');
         
         body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
         h1, h2, h3, .comic-font { font-family: 'Comic Neue', cursive; }
         
+        /* CSS Variables for Themes - Default Indigo */
+        :root {
+            --c-50: #eef2ff; --c-100: #e0e7ff; --c-200: #c7d2fe; --c-300: #a5b4fc;
+            --c-400: #818cf8; --c-500: #6366f1; --c-600: #4f46e5; --c-700: #4338ca;
+            --c-800: #3730a3; --c-900: #312e81;
+        }
+
         /* Essential Utilities */
         .hidden { display: none !important; }
         
@@ -52,33 +86,34 @@
         }
 
         .print-only { display: none; }
-        .grade-input:focus { outline: none; border-color: #8b5cf6; ring: 2px; ring-color: #ddd6fe; }
+        .grade-input:focus { outline: none; border-color: var(--c-500); ring: 2px; ring-color: var(--c-200); }
+        
+        /* Theme Swatches */
+        .theme-swatch { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 0 0 2px #e5e7eb; }
+        .theme-swatch.active { box-shadow: 0 0 0 2px var(--c-600); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
     <!-- Header -->
-    <header class="bg-indigo-600 text-white shadow-lg sticky top-0 z-50 no-print">
+    <header class="bg-primary-600 text-white shadow-lg sticky top-0 z-50 no-print transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <!-- Logo Trigger -->
-                <div class="relative group cursor-pointer" onclick="document.getElementById('logo-upload').click()" title="Change School Logo">
-                    <div id="header-logo-container" class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center border-2 border-indigo-400 overflow-hidden hover:border-white transition">
-                        <svg id="default-logo-icon" class="w-6 h-6 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <!-- Logo Display (Click to open settings) -->
+                <div class="relative group cursor-pointer" onclick="window.openSettingsModal()" title="App Settings">
+                    <div id="header-logo-container" class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center border-2 border-primary-400 overflow-hidden hover:border-white transition">
+                        <svg id="default-logo-icon" class="w-6 h-6 text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         <img id="header-logo-img" class="hidden w-full h-full object-cover" alt="School Logo">
-                    </div>
-                    <div class="absolute -bottom-1 -right-1 bg-white text-indigo-600 rounded-full p-1 shadow-sm opacity-0 group-hover:opacity-100 transition">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                     </div>
                 </div>
                 
                 <div>
                     <h1 class="text-2xl font-bold comic-font tracking-wide leading-none">Neerada School</h1>
                     <div class="flex items-center gap-2 mt-1">
-                        <p class="text-indigo-200 text-xs">K3 Grading App • Cloud Sync</p>
+                        <p class="text-primary-200 text-xs">K3 Grading App • Cloud Sync</p>
                         
                         <!-- School Year Selector -->
-                        <select id="school-year-select" class="bg-indigo-700 text-white text-xs border border-indigo-500 rounded px-2 py-0.5 focus:outline-none focus:ring-1 focus:ring-white">
+                        <select id="school-year-select" class="bg-primary-700 text-white text-xs border border-primary-500 rounded px-2 py-0.5 focus:outline-none focus:ring-1 focus:ring-white">
                             <option value="SY 2025-2026">SY 2025-2026</option>
                             <option value="SY 2026-2027">SY 2026-2027</option>
                             <option value="SY 2027-2028">SY 2027-2028</option>
@@ -93,21 +128,25 @@
                 </div>
             </div>
 
-            <div class="flex gap-2">
+            <div class="flex gap-2 items-center">
+                <!-- Settings Gear -->
+                <button onclick="window.openSettingsModal()" class="p-2 text-primary-200 hover:text-white transition rounded-full hover:bg-primary-500" title="Settings & Themes">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </button>
+
                 <button onclick="document.getElementById('restore-upload').click()" class="text-xs bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded text-white transition flex items-center gap-1 shadow-sm border border-orange-400">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                    Restore Data
+                    Restore
                 </button>
-                <button onclick="window.print()" class="text-xs bg-indigo-500 hover:bg-indigo-400 px-3 py-1 rounded text-white transition flex items-center gap-1">
+                <button onclick="window.print()" class="text-xs bg-primary-500 hover:bg-primary-400 px-3 py-1 rounded text-white transition flex items-center gap-1">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Print Record
+                    Print
                 </button>
-                <button onclick="window.exportData()" class="text-xs bg-indigo-800 hover:bg-indigo-900 px-3 py-1 rounded border border-indigo-500 transition">
-                    Backup Data
+                <button onclick="window.exportData()" class="text-xs bg-primary-800 hover:bg-primary-900 px-3 py-1 rounded border border-primary-500 transition">
+                    Backup
                 </button>
             </div>
         </div>
-        <input type="file" id="logo-upload" hidden accept="image/*">
         <input type="file" id="restore-upload" hidden accept=".json">
     </header>
 
@@ -137,7 +176,7 @@
             <div class="p-4 border-b border-slate-100 flex flex-wrap justify-between items-center bg-slate-50/50 gap-4 no-print">
                 <div class="flex items-center gap-2">
                     <h2 id="current-section-title" class="text-xl font-bold text-slate-700 comic-font">Loading...</h2>
-                    <button onclick="window.editSectionName()" id="edit-section-btn" class="hidden text-slate-400 hover:text-indigo-600 transition" title="Rename Section">
+                    <button onclick="window.editSectionName()" id="edit-section-btn" class="hidden text-slate-400 hover:text-primary-600 transition" title="Rename Section">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                     </button>
                 </div>
@@ -191,6 +230,71 @@
         </div>
     </footer>
 
+    <!-- Modal: Settings & Themes -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm no-print">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold comic-font text-slate-700">App Settings</h3>
+                <button onclick="window.closeModal('settings-modal')" class="text-slate-400 hover:text-slate-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Theme Selector -->
+            <div class="mb-6">
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-3">Color Theme</label>
+                <div class="flex gap-3 justify-center">
+                    <div onclick="window.applyTheme('indigo')" class="theme-swatch bg-indigo-600" title="Indigo (Default)"></div>
+                    <div onclick="window.applyTheme('rose')" class="theme-swatch bg-rose-600" title="Rose"></div>
+                    <div onclick="window.applyTheme('emerald')" class="theme-swatch bg-emerald-600" title="Emerald"></div>
+                    <div onclick="window.applyTheme('amber')" class="theme-swatch bg-amber-600" title="Amber"></div>
+                    <div onclick="window.applyTheme('violet')" class="theme-swatch bg-violet-600" title="Violet"></div>
+                </div>
+            </div>
+
+            <!-- Logo Upload -->
+            <div class="mb-6">
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">School Logo</label>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center border overflow-hidden">
+                        <img id="settings-logo-preview" class="w-full h-full object-contain hidden">
+                        <span id="settings-logo-placeholder" class="text-xs text-slate-400">None</span>
+                    </div>
+                    <label class="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded text-xs font-medium transition">
+                        Upload Logo
+                        <input type="file" hidden accept="image/*" onchange="window.handleLogoUpload(event)">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Favicon Upload -->
+            <div class="mb-8">
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Browser Icon (Favicon)</label>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center border overflow-hidden">
+                        <img id="settings-favicon-preview" class="w-full h-full object-cover hidden">
+                        <span id="settings-favicon-placeholder" class="text-xs text-slate-400">Icon</span>
+                    </div>
+                    <label class="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded text-xs font-medium transition">
+                        Upload Icon
+                        <input type="file" hidden accept="image/*" onchange="window.handleFaviconUpload(event)">
+                    </label>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1">Updates browser tab & mobile home screen icon.</p>
+            </div>
+
+            <!-- Load Default Data -->
+            <div class="pt-6 border-t border-slate-100">
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Data Management</label>
+                <button onclick="window.loadK3Data()" class="w-full bg-slate-800 hover:bg-slate-900 text-white py-2 rounded text-sm font-medium transition flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    Load K3 Default Data
+                </button>
+                <p class="text-[10px] text-center text-slate-400 mt-1">This will add the K3 student list if missing.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal: Add Student -->
     <div id="add-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm no-print">
         <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
@@ -198,14 +302,14 @@
             <p class="text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">Adding to: <span class="font-bold" id="add-modal-year-display"></span></p>
             <form id="add-student-form">
                 <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Full Name</label>
-                <input type="text" id="student-name-input" required class="w-full p-3 rounded border border-slate-300 mb-4 focus:ring-2 ring-indigo-500 outline-none" placeholder="e.g. Juan dela Cruz">
+                <input type="text" id="student-name-input" required class="w-full p-3 rounded border border-slate-300 mb-4 focus:ring-2 ring-primary-500 outline-none" placeholder="e.g. Juan dela Cruz">
                 
                 <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nickname (Optional)</label>
-                <input type="text" id="student-nickname-input" class="w-full p-3 rounded border border-slate-300 mb-6 focus:ring-2 ring-indigo-500 outline-none" placeholder="e.g. Juany">
+                <input type="text" id="student-nickname-input" class="w-full p-3 rounded border border-slate-300 mb-6 focus:ring-2 ring-primary-500 outline-none" placeholder="e.g. Juany">
 
                 <div class="flex justify-end gap-2">
                     <button type="button" onclick="window.closeModal('add-modal')" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded transition">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium shadow transition">Add Student</button>
+                    <button type="submit" class="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded font-medium shadow transition">Add Student</button>
                 </div>
             </form>
         </div>
@@ -218,10 +322,10 @@
             <form id="edit-student-form">
                 <input type="hidden" id="edit-student-id">
                 <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Full Name</label>
-                <input type="text" id="edit-student-name" required class="w-full p-3 rounded border border-slate-300 mb-4 focus:ring-2 ring-indigo-500 outline-none">
+                <input type="text" id="edit-student-name" required class="w-full p-3 rounded border border-slate-300 mb-4 focus:ring-2 ring-primary-500 outline-none">
                 
                 <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nickname (Optional)</label>
-                <input type="text" id="edit-student-nickname" class="w-full p-3 rounded border border-slate-300 mb-6 focus:ring-2 ring-indigo-500 outline-none">
+                <input type="text" id="edit-student-nickname" class="w-full p-3 rounded border border-slate-300 mb-6 focus:ring-2 ring-primary-500 outline-none">
 
                 <div class="flex justify-end gap-2">
                     <button type="button" onclick="window.closeModal('edit-student-modal')" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded transition">Cancel</button>
@@ -235,22 +339,22 @@
     <div id="import-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm no-print">
         <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
             <h3 class="text-xl font-bold mb-2 comic-font">Import Students via CSV</h3>
-            <p class="text-sm text-slate-500 mb-6">Importing to: <span class="font-bold text-indigo-700" id="import-section-name"></span> (<span id="import-year-display" class="font-medium"></span>)</p>
+            <p class="text-sm text-slate-500 mb-6">Importing to: <span class="font-bold text-primary-700" id="import-section-name"></span> (<span id="import-year-display" class="font-medium"></span>)</p>
             
             <div class="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
                 <p class="text-xs font-bold text-slate-700 mb-2 uppercase">CSV Format:</p>
                 <p class="text-xs text-slate-600 mb-2">Column 1: Full Name<br>Column 2: Nickname</p>
-                <button onclick="window.downloadTemplate()" class="text-xs text-indigo-600 hover:text-indigo-800 underline flex items-center gap-1">
+                <button onclick="window.downloadTemplate()" class="text-xs text-primary-600 hover:text-primary-800 underline flex items-center gap-1">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     Download Template
                 </button>
             </div>
 
-            <input type="file" id="csv-file-input" accept=".csv" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 mb-6"/>
+            <input type="file" id="csv-file-input" accept=".csv" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 mb-6"/>
 
             <div class="flex justify-end gap-2">
                 <button type="button" onclick="window.closeModal('import-modal')" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded transition">Cancel</button>
-                <button type="button" onclick="window.handleCSVUpload()" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium shadow transition">Import Now</button>
+                <button type="button" onclick="window.handleCSVUpload()" class="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded font-medium shadow transition">Import Now</button>
             </div>
         </div>
     </div>
@@ -263,7 +367,7 @@
                 <input type="text" id="section-rename-input" required class="w-full p-3 rounded border border-slate-300 mb-4">
                 <div class="flex justify-end gap-2">
                     <button type="button" onclick="window.closeModal('rename-modal')" class="px-3 py-1 text-slate-600">Cancel</button>
-                    <button type="submit" class="px-4 py-1 bg-indigo-600 text-white rounded">Save</button>
+                    <button type="submit" class="px-4 py-1 bg-primary-600 text-white rounded">Save</button>
                 </div>
             </form>
         </div>
@@ -275,10 +379,10 @@
             <h3 class="text-lg font-bold mb-1 comic-font" id="max-score-month-title">January</h3>
             <p class="text-xs text-slate-500 mb-4">Set Perfect Score for this month. Grades recalculate automatically.</p>
             <form id="set-max-score-form">
-                <input type="number" id="max-score-input" required min="1" class="w-full p-3 text-center text-2xl font-mono rounded border border-slate-300 mb-4 focus:ring-2 ring-indigo-500 outline-none">
+                <input type="number" id="max-score-input" required min="1" class="w-full p-3 text-center text-2xl font-mono rounded border border-slate-300 mb-4 focus:ring-2 ring-primary-500 outline-none">
                 <div class="flex justify-end gap-2">
                     <button type="button" onclick="window.closeModal('max-score-modal')" class="px-3 py-1 text-slate-600">Cancel</button>
-                    <button type="submit" class="px-4 py-1 bg-indigo-600 text-white rounded">Set Score</button>
+                    <button type="submit" class="px-4 py-1 bg-primary-600 text-white rounded">Set Score</button>
                 </div>
             </form>
         </div>
@@ -294,7 +398,7 @@
                 </div>
                 <div class="text-right">
                     <div class="text-xs text-slate-400 uppercase">Perfect Score</div>
-                    <div class="text-lg font-bold text-indigo-600" id="score-perfect-display">20</div>
+                    <div class="text-lg font-bold text-primary-600" id="score-perfect-display">20</div>
                 </div>
             </div>
 
@@ -303,14 +407,14 @@
                 <input type="hidden" id="score-month-key">
                 
                 <label class="block text-sm font-bold text-slate-700 mb-2">Raw Score</label>
-                <input type="number" step="0.1" id="raw-score-input" class="w-full p-4 text-3xl font-mono text-center rounded border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none mb-6" placeholder="0" oninput="window.calculatePreview()">
+                <input type="number" step="0.1" id="raw-score-input" class="w-full p-4 text-3xl font-mono text-center rounded border border-slate-300 focus:ring-2 focus:ring-primary-500 outline-none mb-6" placeholder="0" oninput="window.calculatePreview()">
 
                 <div class="text-center mb-6">
                     <div class="text-xs text-slate-400 uppercase">Grade Preview</div>
                     <div id="grade-preview" class="text-4xl font-bold text-slate-300 comic-font">1.0</div>
                 </div>
 
-                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-bold shadow transition">Save Grade</button>
+                <button type="submit" class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white rounded font-bold shadow transition">Save Grade</button>
             </form>
         </div>
     </div>
@@ -320,7 +424,7 @@
         <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full p-6 h-[80vh] flex flex-col">
             <div class="mb-4">
                 <h3 class="text-xl font-bold comic-font">Progress Notes</h3>
-                <p class="text-sm text-slate-500">Reading & Writing Observations for <span id="notes-student-name" class="font-bold text-indigo-600"></span></p>
+                <p class="text-sm text-slate-500">Reading & Writing Observations for <span id="notes-student-name" class="font-bold text-primary-600"></span></p>
             </div>
             
             <form id="save-notes-form" class="flex-grow flex flex-col overflow-hidden">
@@ -332,7 +436,7 @@
 
                 <div class="flex justify-end gap-2 pt-4 border-t border-slate-100">
                     <button type="button" onclick="window.closeModal('notes-modal')" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded transition">Close</button>
-                    <button type="submit" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium shadow transition">Save Notes</button>
+                    <button type="submit" class="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded font-medium shadow transition">Save Notes</button>
                 </div>
             </form>
         </div>
@@ -350,7 +454,6 @@
         let firebaseConfig, appId;
 
         try {
-            // 1. Try Environment Config (Works automatically in this Preview/Canvas)
             if (typeof __firebase_config !== 'undefined') {
                 firebaseConfig = JSON.parse(__firebase_config);
                 appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -358,7 +461,6 @@
                 throw new Error("Local environment detected");
             }
         } catch (e) {
-            // 2. Fallback Config (Works on GitHub Pages / Localhost)
             firebaseConfig = {
                 apiKey: "AIzaSyAVe3_P_rNkI7tvw3yPABvtAB6jI9y479A",
                 authDomain: "neerada-grading.firebaseapp.com",
@@ -367,18 +469,19 @@
                 messagingSenderId: "375627658475",
                 appId: "1:375627658475:web:fd28e650d6afc8fcbf3aae"
             };
-            // Unique folder name for your deployed app data
             appId = 'neerada-grading-v1'; 
         }
 
-        // Initialize Firebase (This part was missing!)
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
         let userId = null;
         
-        // --- App State ---
+        // --- App Data ---
+        // Compact version of user provided data
+        const PRELOADED_DATA = {"sections":[{"id":"sec_1","name":"Langsat ລັງ​ສາດ","maxScores":{"jan":50}},{"id":"sec_2","name":"Longkong ​ລອງກອງ","maxScores":{}},{"id":"sec_3","name":"​Tomato ເລັ່ນ","maxScores":{}},{"id":"sec_4","name":"​Grapes ລາ​ແຊ໋ງ","maxScores":{}},{"id":"sec_5","name":"​Lynchee ລິນ​ຈີ່","maxScores":{}},{"id":"sec_6","name":"Lamut ລະ​ມຸດ","maxScores":{}},{"id":"sec_7","name":"​Lamyay ລຳ​ໃຍ","maxScores":{}}],"students":[{"id":"1766128854295wdydg","name":"Tanya Inthalangsy","nickname":"Tanya","sectionId":"sec_1"},{"id":"1766128854298p5k97","name":"Nanthida Souliyavong","nickname":"Anew","sectionId":"sec_1"},{"id":"17661288542998wnrl","name":"Thipphaphone Siphanith","nickname":"Bella","sectionId":"sec_1"},{"id":"17661288543003tlgn","name":"Aphatsala Nanthavong","nickname":"Nirin","sectionId":"sec_1"},{"id":"1766128854300ogpo2","name":"Peeyada Insixiengmai","nickname":"Namhom","sectionId":"sec_1"},{"id":"1766128854302ezr11","name":"Phetmany Osoulin","nickname":"Emmy","sectionId":"sec_1"},{"id":"1766128854302m4ovd","name":"Souknapha Kingvongsa","nickname":"Pangpang","sectionId":"sec_1"},{"id":"176612885430339q62","name":"Namthida Keobounla","nickname":"Aura","sectionId":"sec_1"},{"id":"1766128854303of8fa","name":"Phonemanee Lattana","nickname":"Beena","sectionId":"sec_1"},{"id":"1766128854303rt07j","name":"Kanyalat Lueanvilay","nickname":"Disney","sectionId":"sec_1"},{"id":"1766128854303ue17i","name":"Sounjangwei Sisongkham","nickname":"Jangwei","sectionId":"sec_1"},{"id":"17661288543045nw29","name":"Phantue Phommavichith","nickname":"Phantue","sectionId":"sec_1"},{"id":"1766128854304ym09o","name":"Thipphasone Basavanhthong","nickname":"Namthip","sectionId":"sec_1"},{"id":"1766128854304yq3ce","name":"Moukthida Singkhambua","nickname":"Aomsin","sectionId":"sec_1"},{"id":"1766128854304z8fxi","name":"Palamee Tanongkham","nickname":"Ben","sectionId":"sec_1"},{"id":"17661288543059n7hs","name":"Soukphakone Sysouphan","nickname":"Soukphakone","sectionId":"sec_1"},{"id":"1766128854305ayh8y","name":"Quangkhai Nguyennhu","nickname":"Navin","sectionId":"sec_1"},{"id":"1766128854305k6ccw","name":"Pounxayya Houngheuangmanh","nickname":"Lion","sectionId":"sec_1"},{"id":"1766128854305mgt8c","name":"Xaynakhone Vanhkham","nickname":"Phupha","sectionId":"sec_1"},{"id":"17661288543068kcwp","name":"Phisithxay Sanatem","nickname":"Potter","sectionId":"sec_1"},{"id":"1766128854306anwn7","name":"Sonsai Daeng Misai","nickname":"Fat","sectionId":"sec_1"},{"id":"1766128854306l1w27","name":"Ariyasack Rasaphon","nickname":"Thewise","sectionId":"sec_1"},{"id":"1766128854306wuete","name":"Phetsavanh Chalernsack","nickname":"Tutor","sectionId":"sec_1"},{"id":"17661288543079hv5a","name":"Sonexay Sichantha","nickname":"Phayu","sectionId":"sec_1"},{"id":"1766128854307cltaz","name":"Super Phonhalard","nickname":"Super","sectionId":"sec_1"},{"id":"1766128854307guut7","name":"Thavisouk Ounmano","nickname":"Mickey","sectionId":"sec_1"},{"id":"1768187691679yiumv","name":"Vannapha Sikounlabout","nickname":"Anya","sectionId":"sec_2"},{"id":"176818769168093cb5","name":"Silathip Chanthavong","nickname":"Celine","sectionId":"sec_2"},{"id":"1768187691680czvz3","name":"Minthila Phommanin","nickname":"Minnie","sectionId":"sec_2"},{"id":"1768187691680hotls","name":"Phonethida Bounheuang","nickname":"Panao","sectionId":"sec_2"},{"id":"1768187691681nlozr","name":"Nitdavorn Bouaphachan","nickname":"Nong Mai","sectionId":"sec_2"},{"id":"1768187691681vrq20","name":"Somvang Linavong","nickname":"Ai Ton","sectionId":"sec_2"},{"id":"1768187691682hxh7q","name":"Sornsakda Singhavong","nickname":"Yota","sectionId":"sec_2"},{"id":"1768187691682jk6n3","name":"Sanasone Davilayhong","nickname":"Anon","sectionId":"sec_2"},{"id":"17681876916834in95","name":"Nakhonexap Laoly","nickname":"Avin","sectionId":"sec_2"},{"id":"1768187691683as5m4","name":"Thavysouk Tommany","nickname":"Yai","sectionId":"sec_2"},{"id":"1768187691684cpttm","name":"Sokthavy Phongpachit","nickname":"Jame","sectionId":"sec_2"},{"id":"1768187691684g5nlu","name":"Alounyadeth Sayoudone","nickname":"Copter","sectionId":"sec_2"},{"id":"17681876916858ff5q","name":"Nilada Phithakvong","nickname":"Phamee","sectionId":"sec_2"},{"id":"17681876916859rtxb","name":"Douangdao Vongvilay","nickname":"Bao","sectionId":"sec_2"},{"id":"1768187691686p92hv","name":"Bounthidaly Xayyasaeng","nickname":"Bonus","sectionId":"sec_2"},{"id":"1768187691686qdr3f","name":"Khuansouda Chanthavong","nickname":"Mila","sectionId":"sec_2"},{"id":"176818769168761a11","name":"Valout Liaolaeng","nickname":"Nong Ka","sectionId":"sec_2"},{"id":"1768187691687c8csy","name":"Analin Saengkham","nickname":"Terra","sectionId":"sec_2"},{"id":"1768187691687cpqtu","name":"Anavin Kaeovanthien","nickname":"Amy","sectionId":"sec_2"},{"id":"1768187691688owodk","name":"Sitthisok Saeng-outhone","nickname":"Iron","sectionId":"sec_2"},{"id":"1768187691688xtc5i","name":"Nanthakone Phanthavy","nickname":"Owen","sectionId":"sec_2"},{"id":"17681876916895esde","name":"Phonphain Chula","nickname":"Bio","sectionId":"sec_2"},{"id":"1768187691689m9kuk","name":"Sitthidet Louangphakdy","nickname":"Kop","sectionId":"sec_2"},{"id":"1768187691689v1mnb","name":"Sornmeexay Vorasane","nickname":"Doka","sectionId":"sec_2"},{"id":"1768187691690g2xk2","name":"Phousavan Xayyapanya","nickname":"Topten","sectionId":"sec_2"},{"id":"1768187691690k2l5w","name":"Bounthasok Phanavan","nickname":"Boston","sectionId":"sec_2"},{"id":"1768188081499zxl92","name":"Netnaree Mingboupha","nickname":"Naree","sectionId":"sec_3"},{"id":"17681880815047p23f","name":"Kaeothida Phetchampa","nickname":"Moukda","sectionId":"sec_3"},{"id":"1768188081504k6c05","name":"Niphada Inthavong","nickname":"Noey Noey","sectionId":"sec_3"},{"id":"1768188081505bv5ek","name":"Soupharat Philavong","nickname":"Pram Pram","sectionId":"sec_3"},{"id":"1768188081505wneic","name":"Valinphone Chanthaminavong","nickname":"Maybe","sectionId":"sec_3"},{"id":"17681880815065rr4e","name":"Vatsana Louangphasy","nickname":"Youly","sectionId":"sec_3"},{"id":"1768188081506us0eu","name":"Vilada Sounthone","nickname":"June","sectionId":"sec_3"},{"id":"176818808150743r8r","name":"Vilayphet Phosalat","nickname":"Diwka","sectionId":"sec_3"},{"id":"1768188081507rxfzh","name":"Netnapha Ousakoun","nickname":"Ing Ing","sectionId":"sec_3"},{"id":"1768188081507z9moa","name":"Minnie Vilayphon","nickname":"Minnie","sectionId":"sec_3"},{"id":"1768188081508h7ijl","name":"Manida Manykham","nickname":"Ailin","sectionId":"sec_3"},{"id":"1768188081508nx3k7","name":"Soutthida Yakanaki","nickname":"Tina","sectionId":"sec_3"},{"id":"1768188081509bzdo9","name":"Phavana Kaeohavong","nickname":"Party","sectionId":"sec_3"},{"id":"1768188081509nzj65","name":"Maniphone Kaeovilyavong","nickname":"Pinky","sectionId":"sec_3"},{"id":"1768188081509or3s7","name":"Salongxay Phommixay","nickname":"Navin","sectionId":"sec_3"},{"id":"17681880815102rseo","name":"Khampasong Vongphakdy","nickname":"Winner","sectionId":"sec_3"},{"id":"1768188081510aeggo","name":"Thavyxap Viengkamsone","nickname":"Phoupha","sectionId":"sec_3"},{"id":"1768188081510bb49j","name":"Likhitxay Libouapao","nickname":"Likhit","sectionId":"sec_3"},{"id":"176818808151181z7y","name":"Alounyadeth Saenvong","nickname":"Nai","sectionId":"sec_3"},{"id":"176818808151189j8b","name":"Thanousone Louangsamat","nickname":"Micka","sectionId":"sec_3"},{"id":"1768188081511uz22a","name":"Soukmeexay Manyvanh","nickname":"Copter","sectionId":"sec_3"},{"id":"17681880815125w7n8","name":"Anouxsa Faengmany","nickname":"Dino","sectionId":"sec_3"},{"id":"1768188081512mtqid","name":"Phonethideth Khambouaxay","nickname":"Phasok","sectionId":"sec_3"},{"id":"1768188081512pxj4u","name":"Soukthavone Nolinntha","nickname":"Demo","sectionId":"sec_3"},{"id":"1768188081512rf3rp","name":"Thepphaxay Phoumvixay","nickname":"Q","sectionId":"sec_3"},{"id":"1768188473266q2z3g","name":"Phetthida Chaleunsouk","nickname":"Baby","sectionId":"sec_4"},{"id":"1768188473268y9qxz","name":"Chiraphone Khattiyalat","nickname":"Aida","sectionId":"sec_4"},{"id":"1768188473269bfptu","name":"Linrada Khounnuvong","nickname":"Yuri","sectionId":"sec_4"},{"id":"1768188473269l1zht","name":"Palita Xayaphim","nickname":"Meya","sectionId":"sec_4"},{"id":"1768188473270btf55","name":"Manylin Savongthong","nickname":"Nam","sectionId":"sec_4"},{"id":"1768188473270ohbnx","name":"Inthila Phommavanh","nickname":"Milin","sectionId":"sec_4"},{"id":"1768188473271nitg3","name":"Phetsakhone Kaethalong","nickname":"Aphing","sectionId":"sec_4"},{"id":"1768188473271qhvu9","name":"Phet-dala Louanglat","nickname":"Bella","sectionId":"sec_4"},{"id":"17681884732727qpj1","name":"Phimsoupha Latxavong","nickname":"Khaohom","sectionId":"sec_4"},{"id":"1768188473272a96wt","name":"Thidasavan Bounsane","nickname":"Thida","sectionId":"sec_4"},{"id":"1768188473272eccpd","name":"Phoutthida Saendy","nickname":"Nuey","sectionId":"sec_4"},{"id":"17681884732737lju0","name":"Namfon Chaichia","nickname":"Mimor","sectionId":"sec_4"},{"id":"1768188473273fml4e","name":"Fasai Vangxouapao","nickname":"Fasai","sectionId":"sec_4"},{"id":"1768188473273wgncf","name":"Kaolouxi Vangxayyear","nickname":"Lucy","sectionId":"sec_4"},{"id":"17681884732743empu","name":"Anouphap Souphanthone","nickname":"Jojo","sectionId":"sec_4"},{"id":"1768188473274vh8ri","name":"Soutthida Kaeosavang","nickname":"Peng","sectionId":"sec_4"},{"id":"1768188473274x6pqs","name":"Phourixay Louangkhot","nickname":"Mavin","sectionId":"sec_4"},{"id":"1768188473275c0npr","name":"Xayyavong Vilay","nickname":"Tiger","sectionId":"sec_4"},{"id":"1768188473275duxer","name":"Thepphakoun Homsombat","nickname":"Jaokhoun","sectionId":"sec_4"},{"id":"1768188473275z7e81","name":"Thanakhone Chittalath","nickname":"Athen","sectionId":"sec_4"},{"id":"1768188473275zo5yk","name":"Alanda Phanthavong","nickname":"Latte","sectionId":"sec_4"},{"id":"1768188473276bns1d","name":"Phisitxay Sitthidet","nickname":"Newtern","sectionId":"sec_4"},{"id":"1768188473276sj5ko","name":"Inthachak Mounthong","nickname":"Bank","sectionId":"sec_4"},{"id":"1768188473276ugetp","name":"Sokthavy Vongvichit","nickname":"Captain","sectionId":"sec_4"},{"id":"17681884732773ojgt","name":"Vilakone Vitthanakoun","nickname":"Anon","sectionId":"sec_4"},{"id":"17681884732774ryuj","name":"Sokthavy Xaypanya","nickname":"Cooper","sectionId":"sec_4"},{"id":"1768188473277msznp","name":"Bounman Sitsouvong","nickname":"Lion","sectionId":"sec_4"},{"id":"1768188473277tcpus","name":"Chitpanya Vongxay","nickname":"Vinda","sectionId":"sec_4"},{"id":"1768189676656vyirp","name":"Elsa Naphanthalak","nickname":"Elsa","sectionId":"sec_5"},{"id":"17681896766573puem","name":"Anita Thammyphone","nickname":"Anita","sectionId":"sec_5"},{"id":"1768189676657euwad","name":"Moukdalin Soinxay","nickname":"Moukda","sectionId":"sec_5"},{"id":"17681896766589niq0","name":"Manyphet Louangamat","nickname":"Namthip","sectionId":"sec_5"},{"id":"1768189676658d4fd1","name":"Moukthida Douangchaleun","nickname":"Thida","sectionId":"sec_5"},{"id":"17681896766595pmm0","name":"Phetmixay Xayyavong","nickname":"Amuey","sectionId":"sec_5"},{"id":"1768189676659bs6op","name":"Alisa Vixay","nickname":"Aphing","sectionId":"sec_5"},{"id":"1768189676659voatx","name":"Viphavady Chittalath","nickname":"Minta","sectionId":"sec_5"},{"id":"1768189676660hc87l","name":"Solada Phommachack","nickname":"Fena","sectionId":"sec_5"},{"id":"1768189676660rffhf","name":"Chanthamaly Phothipanya","nickname":"Dalin","sectionId":"sec_5"},{"id":"1768189676661f2bjo","name":"Nouan-aksone Phommaly","nickname":"Ansan","sectionId":"sec_5"},{"id":"1768189676661p8nzg","name":"Phetdala Thongsavath","nickname":"Mango","sectionId":"sec_5"},{"id":"1768189676662fx6us","name":"Evarin Sommalavong","nickname":"Eva","sectionId":"sec_5"},{"id":"1768189676662sieyy","name":"Souphada Thammavong","nickname":"Yingmeuy","sectionId":"sec_5"},{"id":"1768189676663e67hv","name":"Phasit Sisouvanthong","nickname":"Magnum","sectionId":"sec_5"},{"id":"1768189676663hcrql","name":"Vanxanaxay Phimmasane","nickname":"Navin","sectionId":"sec_5"},{"id":"1768189676663unoh5","name":"Bounxay Saengdavan","nickname":"Ashi","sectionId":"sec_5"},{"id":"17681896766648e955","name":"Souphakone Phommachanh","nickname":"Garfield","sectionId":"sec_5"},{"id":"1768189676664xnfv6","name":"Santisok Saengchaleun","nickname":"Tonka","sectionId":"sec_5"},{"id":"1768189676665dskvf","name":"Xay-inthasone Vixay","nickname":"Xainoy","sectionId":"sec_5"},{"id":"1768189676665k32y7","name":"Yichan Boliboun","nickname":"Yisan","sectionId":"sec_5"},{"id":"1768189676665l3dbh","name":"Thanyasone Tounalom","nickname":"Fluke","sectionId":"sec_5"},{"id":"1768189676666bpkic","name":"Santi Dalasaen","nickname":"Newtern","sectionId":"sec_5"},{"id":"1768189676666ly56n","name":"Toula Xayyahan","nickname":"Peter","sectionId":"sec_5"},{"id":"1768189676666zabew","name":"Soutpaseut Khiaovongphachan","nickname":"Newton","sectionId":"sec_5"},{"id":"17681900686048ea9b","name":"Chansoupha Phanthavong","nickname":"Bowie","sectionId":"sec_6"},{"id":"1768190068605gyd7d","name":"Phimfasai Thongsavath","nickname":"Lisa","sectionId":"sec_6"},{"id":"1768190068605mnon6","name":"Alina Soukchanthala","nickname":"Candy","sectionId":"sec_6"},{"id":"17681900686061jlwt","name":"Navita Boothnate","nickname":"Nita","sectionId":"sec_6"},{"id":"176819006860650b0k","name":"Navida Boothnate","nickname":"Nida","sectionId":"sec_6"},{"id":"1768190068606u3qdq","name":"Namneung Daokhammouan","nickname":"Namneung","sectionId":"sec_6"},{"id":"17681900686077wo0l","name":"Vonvilay Meemounphon","nickname":"Toukta","sectionId":"sec_6"},{"id":"1768190068607bdzko","name":"Fathida Nanthalangsy","nickname":"Fanoy","sectionId":"sec_6"},{"id":"1768190068607euzpn","name":"Valannya Vongkhamsouk","nickname":"Valin","sectionId":"sec_6"},{"id":"1768190068608hise8","name":"Souphansa Vorabout","nickname":"Baby","sectionId":"sec_6"},{"id":"1768190068608krddv","name":"Phonethanakit Inthavong","nickname":"Phon","sectionId":"sec_6"},{"id":"1768190068608y4tkx","name":"Lattanamany Louanglat","nickname":"Stamp","sectionId":"sec_6"},{"id":"17681900686093r80b","name":"Adilat Sourinsak","nickname":"Kina","sectionId":"sec_6"},{"id":"1768190068609ja631","name":"Souliyadet Khounboulom","nickname":"Star","sectionId":"sec_6"},{"id":"1768190068609tridi","name":"Oudomxap Chaleunsouk","nickname":"Brooklyn","sectionId":"sec_6"},{"id":"1768190068610f4ask","name":"Phongxap Chandinavong","nickname":"Copter","sectionId":"sec_6"},{"id":"1768190068610qu3rt","name":"Noah Songbriayi","nickname":"Noah","sectionId":"sec_6"},{"id":"1768190068610ydkx1","name":"Xettha Phetthavisaeng","nickname":"Lemon","sectionId":"sec_6"},{"id":"176819006861131we3","name":"Thanakhone Louangaphai","nickname":"Winner","sectionId":"sec_6"},{"id":"1768190068611e4mj8","name":"Viengphone Sidala","nickname":"Euro","sectionId":"sec_6"},{"id":"1768190068611nqj85","name":"Phetsakda Souliya","nickname":"Thala","sectionId":"sec_6"},{"id":"1768190068611oeoak","name":"Sirikone Kaeodouangdy","nickname":"Eric","sectionId":"sec_6"},{"id":"17681900686120mwdu","name":"Detasa Somchanmavong","nickname":"Oneil","sectionId":"sec_6"},{"id":"1768190068612pt0pg","name":"Soukpasong Phansamay","nickname":"Audi","sectionId":"sec_6"},{"id":"1768190068612wt7w2","name":"Thavyxok Vorachakdaovy","nickname":"Bronte","sectionId":"sec_6"},{"id":"1768190068613abi69","name":"Phonepaseuth Phoutthavong","nickname":"Alex","sectionId":"sec_6"},{"id":"1768190612438oon2t","name":"Thipdavanh Souksala","nickname":"Tamon","sectionId":"sec_7"},{"id":"17681906124390d70v","name":"Nalisa Chanthalasy","nickname":"Malin","sectionId":"sec_7"},{"id":"1768190612440fmihl","name":"Phetsavan Latxavong","nickname":"Vanmai","sectionId":"sec_7"},{"id":"1768190612440il2fd","name":"Panisa Chitkhanti","nickname":"June","sectionId":"sec_7"},{"id":"17681906124412mgmf","name":"Panisa Sisombat","nickname":"Lisa","sectionId":"sec_7"},{"id":"17681906124418q4g9","name":"Piyamone Sichanthavong","nickname":"Mindy","sectionId":"sec_7"},{"id":"1768190612441cj3vq","name":"Palamy Phimmaxak","nickname":"Thapthim","sectionId":"sec_7"},{"id":"1768190612442limbt","name":"Minaphone Saeng-amphon","nickname":"Tataem","sectionId":"sec_7"},{"id":"1768190612442wxvup","name":"Phet-oulay Vilay","nickname":"Ngoc","sectionId":"sec_7"},{"id":"17681906124430a60a","name":"Manisa Chansina","nickname":"Maynie","sectionId":"sec_7"},{"id":"1768190612443e1rj0","name":"Sawoeysouk Xaybounliang","nickname":"Demi","sectionId":"sec_7"},{"id":"1768190612443t1v1i","name":"Phoutthida Panyanouvong","nickname":"Netty","sectionId":"sec_7"},{"id":"176819061244404vhe","name":"Naphavilay Hongvilay","nickname":"Baby","sectionId":"sec_7"},{"id":"1768190612444itkqe","name":"Phoudit Chitkhanti","nickname":"Jett","sectionId":"sec_7"},{"id":"1768190612445j7hup","name":"Koko Champa","nickname":"Coco","sectionId":"sec_7"},{"id":"1768190612445l680d","name":"Hatsady Soukhavong","nickname":"Danny","sectionId":"sec_7"},{"id":"1768190612446950xf","name":"Khamchanphichit Manikham","nickname":"Biw","sectionId":"sec_7"},{"id":"1768190612446dpbou","name":"Phoukhaoka Phanthavong","nickname":"Captan","sectionId":"sec_7"},{"id":"1768190612446vteif","name":"Ekkaphon Khounphilavan","nickname":"Man","sectionId":"sec_7"},{"id":"17681906124479r3pj","name":"Souphasone Dalaphet","nickname":"Khamaiy","sectionId":"sec_7"},{"id":"1768190612447csc1r","name":"Phakin Saengsay","nickname":"Jaozaiy","sectionId":"sec_7"},{"id":"1768190612447jmy56","name":"Visanou Boutsamay","nickname":"Viwill","sectionId":"sec_7"},{"id":"1768190612447k2zvs","name":"Thavyxap Phoumyvong","nickname":"Benly","sectionId":"sec_7"},{"id":"17681906124488a2vi","name":"Thavisouk Ounmano","nickname":"Mickey","sectionId":"sec_7"},{"id":"1768190612448c7g34","name":"Vilasone Phommany","nickname":"Bruno","sectionId":"sec_7"},{"id":"1768190612448j7vi9","name":"Xaynakhone Phimmasane","nickname":"Nai","sectionId":"sec_7"}]};
+
         const MONTHS = [
             { key: 'jan', label: 'January' },
             { key: 'feb', label: 'February' },
@@ -419,7 +522,6 @@
                     await loadSettings();
                     const sections = await getAllSections();
                     await renderSectionTabs(sections);
-                    await loadLogo();
                     document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
                     if (sections.length > 0) {
@@ -431,25 +533,114 @@
             });
         };
 
+        // --- Settings & Themes Logic ---
+
+        const THEMES = {
+            indigo: { 50:'#eef2ff', 100:'#e0e7ff', 200:'#c7d2fe', 300:'#a5b4fc', 400:'#818cf8', 500:'#6366f1', 600:'#4f46e5', 700:'#4338ca', 800:'#3730a3', 900:'#312e81' },
+            rose:   { 50:'#fff1f2', 100:'#ffe4e6', 200:'#fecdd3', 300:'#fda4af', 400:'#fb7185', 500:'#f43f5e', 600:'#e11d48', 700:'#be123c', 800:'#9f1239', 900:'#881337' },
+            emerald:{ 50:'#ecfdf5', 100:'#d1fae5', 200:'#a7f3d0', 300:'#6ee7b7', 400:'#34d399', 500:'#10b981', 600:'#059669', 700:'#047857', 800:'#065f46', 900:'#064e3b' },
+            amber:  { 50:'#fffbeb', 100:'#fef3c7', 200:'#fde68a', 300:'#fcd34d', 400:'#fbbf24', 500:'#f59e0b', 600:'#d97706', 700:'#b45309', 800:'#92400e', 900:'#78350f' },
+            violet: { 50:'#f5f3ff', 100:'#ede9fe', 200:'#ddd6fe', 300:'#c4b5fd', 400:'#a78bfa', 500:'#8b5cf6', 600:'#7c3aed', 700:'#6d28d9', 800:'#5b21b6', 900:'#4c1d95' }
+        };
+
+        window.openSettingsModal = () => document.getElementById('settings-modal').classList.remove('hidden');
+
+        window.applyTheme = async (themeName) => {
+            const colors = THEMES[themeName] || THEMES['indigo'];
+            const root = document.documentElement;
+            
+            // Apply variables
+            for (const [shade, value] of Object.entries(colors)) {
+                root.style.setProperty(`--c-${shade}`, value);
+            }
+
+            // UI feedback
+            document.querySelectorAll('.theme-swatch').forEach(el => el.classList.remove('active'));
+            const activeSwatch = document.querySelector(`.theme-swatch[title*="${themeName.charAt(0).toUpperCase() + themeName.slice(1)}"]`);
+            if(activeSwatch) activeSwatch.classList.add('active');
+
+            // Save to DB
+            if (userId) {
+                await setDoc(doc(db, getUserPath('settings'), 'theme'), { name: themeName }, { merge: true });
+            }
+        };
+
+        window.handleFaviconUpload = async (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 200 * 1024) { alert("File too large. Max 200KB."); return; } // Small limit for icons
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64 = e.target.result;
+                // Update DOM
+                updateFaviconDOM(base64);
+                // Save DB
+                if (userId) {
+                    await setDoc(doc(db, getUserPath('settings'), 'favicon'), { data: base64 }, { merge: true });
+                    alert("Favicon updated!");
+                }
+            };
+            reader.readAsDataURL(file);
+        };
+
+        const updateFaviconDOM = (base64) => {
+            document.getElementById('app-favicon').href = base64;
+            document.getElementById('app-apple-touch-icon').href = base64;
+            
+            const preview = document.getElementById('settings-favicon-preview');
+            preview.src = base64;
+            preview.classList.remove('hidden');
+            document.getElementById('settings-favicon-placeholder').classList.add('hidden');
+        };
+
         // --- Data Integrity & Access ---
 
         const ensureDataIntegrity = async () => {
             if (!userId) return;
             const sections = await getAllSections();
             if (sections.length === 0) {
-                console.log("No sections found. Reseeding default sections in Firestore...");
-                const sectionsRef = collection(db, getUserPath('sections'));
-                for (let i = 1; i <= 7; i++) {
-                    const id = `sec_${i}`;
-                    await setDoc(doc(db, getUserPath('sections'), id), {
-                        id: id,
-                        name: `Section ${i}`,
-                        maxScores: {}
-                    });
-                }
+                console.log("No data found. Seeding PRELOADED_DATA...");
+                await window.loadK3Data(true); // silent load
                 return true;
             }
             return false;
+        };
+
+        window.loadK3Data = async (silent = false) => {
+            if (!userId) return;
+            if (!silent && !confirm("Load K3 Default Data? This will add sections and students if they don't exist.")) return;
+
+            // 1. Sections
+            for (const s of PRELOADED_DATA.sections) {
+                // Check exist to avoid overwrite
+                const ref = doc(db, getUserPath('sections'), s.id);
+                const snap = await getDoc(ref);
+                if(!snap.exists()) {
+                    await setDoc(ref, s);
+                }
+            }
+
+            // 2. Students
+            let count = 0;
+            for (const s of PRELOADED_DATA.students) {
+                const ref = doc(db, getUserPath('students'), s.id);
+                const snap = await getDoc(ref);
+                if(!snap.exists()) {
+                    // Ensure schoolYear is set
+                    const studentData = { ...s, schoolYear: s.schoolYear || 'SY 2025-2026', scores: s.scores || {} };
+                    await setDoc(ref, studentData);
+                    count++;
+                }
+            }
+
+            if (!silent) {
+                alert(`Loaded! Added ${count} new students.`);
+                location.reload();
+            } else {
+                // If it was a silent init load, we need to refresh the view manually or reload
+                if(count > 0) location.reload();
+            }
         };
         
         const getAllSections = async () => {
@@ -558,7 +749,7 @@
 
         // --- Logo Logic ---
 
-        const handleLogoUpload = (event) => {
+        window.handleLogoUpload = (event) => {
             const file = event.target.files[0];
             if (!file) return;
 
@@ -572,7 +763,7 @@
             reader.onload = async function(e) {
                 const base64 = e.target.result;
                 if (userId) {
-                    await setDoc(doc(db, getUserPath('settings'), 'school_logo'), { data: base64 });
+                    await setDoc(doc(db, getUserPath('settings'), 'school_logo'), { data: base64 }, { merge: true });
                     displayLogo(base64);
                     alert("Logo updated successfully!");
                 }
@@ -597,18 +788,40 @@
             const printImg = document.getElementById('print-view-logo');
             printImg.src = base64;
             printImg.classList.remove('hidden');
+            
+            // Settings Preview
+            const setPreview = document.getElementById('settings-logo-preview');
+            setPreview.src = base64;
+            setPreview.classList.remove('hidden');
+            document.getElementById('settings-logo-placeholder').classList.add('hidden');
         };
 
-        // --- School Year Logic ---
+        // --- School Year & Settings Loader ---
         
         const loadSettings = async () => {
             if (!userId) return;
-            const docSnap = await getDoc(doc(db, getUserPath('settings'), 'selected_year'));
-            if (docSnap.exists()) {
-                currentSchoolYear = docSnap.data().val;
+            
+            // Load Year
+            const yearSnap = await getDoc(doc(db, getUserPath('settings'), 'selected_year'));
+            if (yearSnap.exists()) {
+                currentSchoolYear = yearSnap.data().val;
                 document.getElementById('school-year-select').value = currentSchoolYear;
             }
             document.getElementById('print-year-label').textContent = currentSchoolYear;
+
+            // Load Theme
+            const themeSnap = await getDoc(doc(db, getUserPath('settings'), 'theme'));
+            if (themeSnap.exists()) {
+                window.applyTheme(themeSnap.data().name);
+            } else {
+                window.applyTheme('indigo'); // default
+            }
+
+            // Load Favicon
+            const favSnap = await getDoc(doc(db, getUserPath('settings'), 'favicon'));
+            if (favSnap.exists()) {
+                updateFaviconDOM(favSnap.data().data);
+            }
         };
 
         const changeSchoolYear = async () => {
@@ -634,7 +847,7 @@
             container.innerHTML = sections.map(sec => `
                 <button onclick="window.selectSection('${sec.id}')"
                     class="py-3 px-2 rounded-lg text-sm font-semibold transition border border-slate-200 shadow-sm truncate
-                    ${currentSectionId === sec.id ? 'bg-indigo-600 text-white ring-2 ring-indigo-300' : 'bg-white text-slate-600 hover:bg-slate-50'}">
+                    ${currentSectionId === sec.id ? 'bg-primary-600 text-white ring-2 ring-primary-300' : 'bg-white text-slate-600 hover:bg-slate-50'}">
                     ${sec.name}
                 </button>
             `).join('');
@@ -720,7 +933,7 @@
                                <td class="p-3 text-slate-500 border-r border-slate-100 align-middle">
                                     <div class="flex items-center justify-between gap-2">
                                         <span>${s.nickname || '-'}</span>
-                                        <button onclick="window.openNotesModal('${s.id}', '${s.name.replace(/'/g, "\\'")}')" class="text-slate-300 hover:text-indigo-500 transition p-1 rounded hover:bg-indigo-50 no-print" title="Progress Notes">
+                                        <button onclick="window.openNotesModal('${s.id}', '${s.name.replace(/'/g, "\\'")}')" class="text-slate-300 hover:text-primary-500 transition p-1 rounded hover:bg-primary-50 no-print" title="Progress Notes">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                         </button>
                                     </div>
@@ -784,7 +997,6 @@
         // --- Global Handlers (Exposed to window for HTML click handlers) ---
         
         window.changeSchoolYear = () => changeSchoolYear();
-        window.handleLogoUpload = (e) => handleLogoUpload(e);
         window.handleRestore = (e) => handleRestore(e);
         window.selectSection = (id) => selectSection(id);
         
@@ -972,7 +1184,7 @@
                     html += `
                         <div class="bg-slate-50 p-3 rounded border border-slate-200">
                             <div class="flex items-center gap-2 mb-2">
-                                <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold uppercase">${m.label}</span>
+                                <span class="bg-primary-100 text-primary-700 px-2 py-0.5 rounded text-xs font-bold uppercase">${m.label}</span>
                             </div>
                             <table class="w-full border-collapse">
                                 <thead>
@@ -983,8 +1195,8 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="px-1"><textarea name="note_${baseKey}_reading" class="w-full p-2 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 outline-none min-h-[50px] resize-none" placeholder="Reading...">${valRead}</textarea></td>
-                                        <td class="px-1"><textarea name="note_${baseKey}_writing" class="w-full p-2 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 outline-none min-h-[50px] resize-none" placeholder="Writing...">${valWrite}</textarea></td>
+                                        <td class="px-1"><textarea name="note_${baseKey}_reading" class="w-full p-2 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-primary-500 outline-none min-h-[50px] resize-none" placeholder="Reading...">${valRead}</textarea></td>
+                                        <td class="px-1"><textarea name="note_${baseKey}_writing" class="w-full p-2 text-sm border border-slate-300 rounded focus:ring-1 focus:ring-primary-500 outline-none min-h-[50px] resize-none" placeholder="Writing...">${valWrite}</textarea></td>
                                     </tr>
                                 </tbody>
                             </table>
