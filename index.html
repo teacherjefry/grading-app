@@ -57,10 +57,11 @@
         
         /* Glassmorphism */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
         }
 
         /* Nav Tab Styles */
@@ -134,7 +135,7 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
     <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print transition-all duration-300">
+    <header class="bg-white/95 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50 no-print shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
             
             <!-- Left: Logo & Nav -->
@@ -152,14 +153,14 @@
                 </div>
 
                 <!-- Navigation Tabs -->
-                <nav class="hidden md:flex items-center gap-2">
-                    <button onclick="window.switchView('home')" id="nav-btn-home" class="nav-tab px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 active">
+                <nav class="hidden md:flex items-center gap-2 bg-slate-100/50 p-1 rounded-full border border-slate-200/50">
+                    <button onclick="window.switchView('home')" id="nav-btn-home" class="nav-tab px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 active">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                         Home
                     </button>
-                    <button onclick="window.switchView('dashboard')" id="nav-btn-dashboard" class="nav-tab px-5 py-2 rounded-full text-sm font-semibold text-slate-500 transition-all duration-300 flex items-center gap-2">
+                    <button onclick="window.switchView('dashboard')" id="nav-btn-dashboard" class="nav-tab px-6 py-2 rounded-full text-sm font-bold text-slate-500 transition-all duration-300 flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                        Grading System
+                        Grading
                     </button>
                 </nav>
             </div>
@@ -233,24 +234,22 @@
         <!-- VIEW: HOME (Landing Page) -->
         <div id="view-home" class="fade-in">
             <!-- Hero Section -->
-            <div id="home-hero-section" class="relative pt-24 pb-32 overflow-hidden bg-cover bg-center min-h-[600px] flex items-center justify-center transition-all duration-700" 
-                 style="background-image: url('https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1920&q=80');">
+            <div id="home-hero-section" class="relative pt-32 pb-40 overflow-hidden bg-cover bg-center min-h-[650px] flex items-center justify-center transition-all duration-700" 
+                 style="background-image: url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
                 
                 <!-- Darker Overlay for readability -->
-                <div class="absolute inset-0 bg-black/30"></div>
+                <div class="absolute inset-0 bg-black/40"></div>
                 
                 <div class="max-w-4xl mx-auto px-4 text-center relative z-10 w-full">
-                    <div class="glass-panel rounded-3xl p-10 md:p-14 shadow-2xl animate-fade-in mx-auto backdrop-blur-xl">
-                        <span class="inline-block py-1.5 px-4 rounded-full bg-primary-100/90 text-primary-700 text-xs font-bold tracking-widest uppercase mb-6 shadow-sm border border-primary-200">Welcome to Neerada K3</span>
-                        <h1 id="home-hero-title" class="text-5xl md:text-7xl font-bold text-slate-800 mb-6 fredoka-font leading-tight drop-shadow-sm">
-                            Nurturing <span class="text-primary-600">Little Minds</span> <br>
-                            Building Big Dreams
+                    <div class="glass-panel rounded-[2rem] p-12 md:p-16 shadow-2xl animate-fade-in mx-auto backdrop-blur-xl border border-white/40">
+                        <h1 id="home-hero-title" class="text-5xl md:text-7xl font-bold text-slate-900 mb-6 fredoka-font leading-tight drop-shadow-sm tracking-tight">
+                            Blooming Hearts &<br><span class="text-primary-600">Bright Minds</span>
                         </h1>
-                        <p id="home-hero-subtitle" class="text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+                        <p id="home-hero-subtitle" class="text-xl text-slate-700 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
                             At Neerada School, we believe every child is a unique star. Our Kindergarten 3 program blends playful discovery with foundational learning to prepare them for a bright future.
                         </p>
                         <div class="flex justify-center gap-4">
-                            <button onclick="window.switchView('dashboard')" class="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-bold text-lg shadow-lg shadow-primary-500/30 transition-all hover:scale-105 hover:-translate-y-1 flex items-center gap-2 group">
+                            <button onclick="window.switchView('dashboard')" class="px-10 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-bold text-lg shadow-lg shadow-primary-500/30 transition-all hover:scale-105 hover:-translate-y-1 flex items-center gap-2 group">
                                 <span>Go to Grading System</span>
                                 <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                             </button>
@@ -260,38 +259,38 @@
             </div>
 
             <!-- Features & Quotes Section -->
-            <div class="max-w-7xl mx-auto px-4 -mt-20 relative z-20 pb-20">
+            <div class="max-w-7xl mx-auto px-4 -mt-24 relative z-20 pb-20">
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Card 1 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 mb-6 border border-blue-100">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <div class="bg-white p-10 rounded-[2rem] shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 mb-6 border border-blue-100 shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-slate-800 mb-3 fredoka-font">Play-Based Learning</h3>
                         <p class="text-slate-500 leading-relaxed italic text-lg font-light">
                             "Play is the highest form of research."
                         </p>
-                        <p class="text-slate-400 text-sm mt-3 font-semibold tracking-wide uppercase">— Albert Einstein</p>
+                        <p class="text-slate-400 text-sm mt-4 font-bold tracking-widest uppercase">— Albert Einstein</p>
                     </div>
 
                     <!-- Card 2 (Image) -->
-                    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden h-full min-h-[250px] relative group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=80" alt="Kids playing" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="bg-white rounded-[2rem] shadow-xl border border-slate-100 overflow-hidden h-full min-h-[300px] relative group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kids playing" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-8">
-                            <p class="text-white font-medium text-lg drop-shadow-md">Creating happy memories every day.</p>
+                            <p class="text-white font-bold text-xl drop-shadow-md">Creating happy memories every day.</p>
                         </div>
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 mb-6 border border-emerald-100">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="bg-white p-10 rounded-[2rem] shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 mb-6 border border-emerald-100 shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-slate-800 mb-3 fredoka-font">Holistic Growth</h3>
                         <p class="text-slate-500 leading-relaxed italic text-lg font-light">
                             "The goal of early childhood education should be to activate the child's own natural desire to learn."
                         </p>
-                        <p class="text-slate-400 text-sm mt-3 font-semibold tracking-wide uppercase">— Maria Montessori</p>
+                        <p class="text-slate-400 text-sm mt-4 font-bold tracking-widest uppercase">— Maria Montessori</p>
                     </div>
                 </div>
             </div>
@@ -299,23 +298,23 @@
             <!-- Gallery Section -->
             <div class="py-20 bg-slate-50 border-t border-slate-200">
                 <div class="max-w-7xl mx-auto px-4">
-                    <div class="flex items-center justify-between mb-10">
-                        <h2 class="text-4xl font-bold text-slate-800 fredoka-font">Our Classroom Moments</h2>
-                        <div class="h-1.5 bg-primary-200 w-24 rounded-full"></div>
+                    <div class="flex items-center justify-between mb-12">
+                        <h2 class="text-4xl font-bold text-slate-800 fredoka-font tracking-tight">Our Classroom Moments</h2>
+                        <div class="h-2 bg-primary-200 w-32 rounded-full"></div>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[500px]">
-                        <div class="col-span-2 row-span-2 rounded-3xl overflow-hidden shadow-lg group relative">
-                            <img src="https://images.unsplash.com/photo-1502086223501-681a913427c0?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Art time">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 h-[600px]">
+                        <div class="col-span-2 row-span-2 rounded-[2rem] overflow-hidden shadow-lg group relative">
+                            <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Art time">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
                         </div>
-                        <div class="rounded-3xl overflow-hidden shadow-lg group relative">
-                            <img src="https://images.unsplash.com/photo-1506880135364-e28660dc35fa?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Reading">
+                        <div class="rounded-[2rem] overflow-hidden shadow-lg group relative">
+                            <img src="https://images.unsplash.com/photo-1506880135364-e28660dc35fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Reading">
                         </div>
-                        <div class="rounded-3xl overflow-hidden shadow-lg bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center p-6 border border-amber-200">
-                            <p class="text-amber-800/80 font-bold text-center fredoka-font text-2xl leading-relaxed">"Every child is an artist." <br>🎨</p>
+                        <div class="rounded-[2rem] overflow-hidden shadow-lg bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center p-6 border border-amber-200">
+                            <p class="text-amber-800/80 font-bold text-center fredoka-font text-3xl leading-relaxed">"Every child is an artist." <br>🎨</p>
                         </div>
-                        <div class="col-span-2 rounded-3xl overflow-hidden shadow-lg group relative">
-                            <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Group activity">
+                        <div class="col-span-2 rounded-[2rem] overflow-hidden shadow-lg group relative">
+                            <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Group activity">
                         </div>
                     </div>
                 </div>
@@ -390,11 +389,6 @@
                 <div class="text-center md:text-left">
                     <h4 class="font-bold text-slate-700 fredoka-font text-lg">Neerada School</h4>
                     <p class="text-slate-400 text-xs mt-1">Nurturing bright futures since 2010.</p>
-                </div>
-                <div class="flex gap-6 text-sm text-slate-500">
-                    <a href="#" class="hover:text-primary-600 transition">About Us</a>
-                    <a href="#" class="hover:text-primary-600 transition">Contact</a>
-                    <a href="#" class="hover:text-primary-600 transition">Privacy Policy</a>
                 </div>
                 <p class="text-slate-400 text-xs">
                     &copy; <span id="copyright-year"></span> Neerada School. All rights reserved.
@@ -666,22 +660,21 @@
         let firebaseConfig, appId;
 
         try {
+            // Priority: Environment Configuration
             if (typeof __firebase_config !== 'undefined') {
                 firebaseConfig = JSON.parse(__firebase_config);
                 appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
             } else {
-                throw new Error("Local environment detected");
+                // Fallback for local dev or misconfigured env (Optional, keep if useful)
+                // If strict environment is required, you can remove this block.
+                throw new Error("Firebase config not found in environment."); 
             }
         } catch (e) {
-            firebaseConfig = {
-                apiKey: "AIzaSyAVe3_P_rNkI7tvw3yPABvtAB6jI9y479A",
-                authDomain: "neerada-grading.firebaseapp.com",
-                projectId: "neerada-grading",
-                storageBucket: "neerada-grading.firebasestorage.app",
-                messagingSenderId: "375627658475",
-                appId: "1:375627658475:web:fd28e650d6afc8fcbf3aae"
-            };
-            appId = 'neerada-grading-v1'; 
+            console.error("Firebase Initialization Error:", e);
+            // Critical error if config missing. UI will likely fail to load data.
+            // Using a dummy config to prevent crash, but data fetch will fail.
+            firebaseConfig = { apiKey: "", projectId: "neerada-error" };
+            appId = 'error';
         }
 
         const app = initializeApp(firebaseConfig);
@@ -690,7 +683,7 @@
 
         // --- App Data ---
         // Compact version of user provided data
-        const PRELOADED_DATA = {"sections":[{"id":"sec_1","name":"Langsat ລັງ​ສາດ","maxScores":{"jan":50}},{"id":"sec_2","name":"Longkong ​ລອງກອງ","maxScores":{}},{"id":"sec_3","name":"​Tomato ເລັ່ນ","maxScores":{}},{"id":"sec_4","name":"​Grapes ລາ​ແຊ໋ງ","maxScores":{}},{"id":"sec_5","name":"​Lynchee ລິນ​ຈີ່","maxScores":{}},{"id":"sec_6","name":"Lamut ລະ​ມຸດ","maxScores":{}},{"id":"sec_7","name":"​Lamyay ລຳ​ໃຍ","maxScores":{}}],"students":[{"id":"1766128854295wdydg","name":"Tanya Inthalangsy","nickname":"Tanya","sectionId":"sec_1"},{"id":"1766128854298p5k97","name":"Nanthida Souliyavong","nickname":"Anew","sectionId":"sec_1"},{"id":"17661288542998wnrl","name":"Thipphaphone Siphanith","nickname":"Bella","sectionId":"sec_1"},{"id":"17661288543003tlgn","name":"Aphatsala Nanthavong","nickname":"Nirin","sectionId":"sec_1"},{"id":"1766128854300ogpo2","name":"Peeyada Insixiengmai","nickname":"Namhom","sectionId":"sec_1"},{"id":"1766128854302ezr11","name":"Phetmany Osoulin","nickname":"Emmy","sectionId":"sec_1"},{"id":"1766128854302m4ovd","name":"Souknapha Kingvongsa","nickname":"Pangpang","sectionId":"sec_1"},{"id":"176612885430339q62","name":"Namthida Keobounla","nickname":"Aura","sectionId":"sec_1"},{"id":"1766128854303of8fa","name":"Phonemanee Lattana","nickname":"Beena","sectionId":"sec_1"},{"id":"1766128854303rt07j","name":"Kanyalat Lueanvilay","nickname":"Disney","sectionId":"sec_1"},{"id":"1766128854303ue17i","name":"Sounjangwei Sisongkham","nickname":"Jangwei","sectionId":"sec_1"},{"id":"17661288543045nw29","name":"Phantue Phommavichith","nickname":"Phantue","sectionId":"sec_1"},{"id":"1766128854304ym09o","name":"Thipphasone Basavanhthong","nickname":"Namthip","sectionId":"sec_1"},{"id":"1766128854304yq3ce","name":"Moukthida Singkhambua","nickname":"Aomsin","sectionId":"sec_1"},{"id":"1766128854304z8fxi","name":"Palamee Tanongkham","nickname":"Ben","sectionId":"sec_1"},{"id":"17661288543059n7hs","name":"Soukphakone Sysouphan","nickname":"Soukphakone","sectionId":"sec_1"},{"id":"1766128854305ayh8y","name":"Quangkhai Nguyennhu","nickname":"Navin","sectionId":"sec_1"},{"id":"1766128854305k6ccw","name":"Pounxayya Houngheuangmanh","nickname":"Lion","sectionId":"sec_1"},{"id":"1766128854305mgt8c","name":"Xaynakhone Vanhkham","nickname":"Phupha","sectionId":"sec_1"},{"id":"17661288543068kcwp","name":"Phisithxay Sanatem","nickname":"Potter","sectionId":"sec_1"},{"id":"1766128854306anwn7","name":"Sonsai Daeng Misai","nickname":"Fat","sectionId":"sec_1"},{"id":"1766128854306l1w27","name":"Ariyasack Rasaphon","nickname":"Thewise","sectionId":"sec_1"},{"id":"1766128854306wuete","name":"Phetsavanh Chalernsack","nickname":"Tutor","sectionId":"sec_1"},{"id":"17661288543079hv5a","name":"Sonexay Sichantha","nickname":"Phayu","sectionId":"sec_1"},{"id":"1766128854307cltaz","name":"Super Phonhalard","nickname":"Super","sectionId":"sec_1"},{"id":"1766128854307guut7","name":"Thavisouk Ounmano","nickname":"Mickey","sectionId":"sec_1"},{"id":"1768187691679yiumv","name":"Vannapha Sikounlabout","nickname":"Anya","sectionId":"sec_2"},{"id":"176818769168093cb5","name":"Silathip Chanthavong","nickname":"Celine","sectionId":"sec_2"},{"id":"1768187691680czvz3","name":"Minthila Phommanin","nickname":"Minnie","sectionId":"sec_2"},{"id":"1768187691680hotls","name":"Phonethida Bounheuang","nickname":"Panao","sectionId":"sec_2"},{"id":"1768187691681nlozr","name":"Nitdavorn Bouaphachan","nickname":"Nong Mai","sectionId":"sec_2"},{"id":"1768187691681vrq20","name":"Somvang Linavong","nickname":"Ai Ton","sectionId":"sec_2"},{"id":"1768187691682hxh7q","name":"Sornsakda Singhavong","nickname":"Yota","sectionId":"sec_2"},{"id":"1768187691682jk6n3","name":"Sanasone Davilayhong","nickname":"Anon","sectionId":"sec_2"},{"id":"17681876916834in95","name":"Nakhonexap Laoly","nickname":"Avin","sectionId":"sec_2"},{"id":"1768187691683as5m4","name":"Thavysouk Tommany","nickname":"Yai","sectionId":"sec_2"},{"id":"1768187691684cpttm","name":"Sokthavy Phongpachit","nickname":"Jame","sectionId":"sec_2"},{"id":"1768187691684g5nlu","name":"Alounyadeth Sayoudone","nickname":"Copter","sectionId":"sec_2"},{"id":"17681876916858ff5q","name":"Nilada Phithakvong","nickname":"Phamee","sectionId":"sec_2"},{"id":"17681876916859rtxb","name":"Douangdao Vongvilay","nickname":"Bao","sectionId":"sec_2"},{"id":"1768187691686p92hv","name":"Bounthidaly Xayyasaeng","nickname":"Bonus","sectionId":"sec_2"},{"id":"1768187691686qdr3f","name":"Khuansouda Chanthavong","nickname":"Mila","sectionId":"sec_2"},{"id":"176818769168761a11","name":"Valout Liaolaeng","nickname":"Nong Ka","sectionId":"sec_2"},{"id":"1768187691687c8csy","name":"Analin Saengkham","nickname":"Terra","sectionId":"sec_2"},{"id":"1768187691687cpqtu","name":"Anavin Kaeovanthien","nickname":"Amy","sectionId":"sec_2"},{"id":"1768187691688owodk","name":"Sitthisok Saeng-outhone","nickname":"Iron","sectionId":"sec_2"},{"id":"1768187691688xtc5i","name":"Nanthakone Phanthavy","nickname":"Owen","sectionId":"sec_2"},{"id":"17681876916895esde","name":"Phonphain Chula","nickname":"Bio","sectionId":"sec_2"},{"id":"1768187691689m9kuk","name":"Sitthidet Louangphakdy","nickname":"Kop","sectionId":"sec_2"},{"id":"1768187691689v1mnb","name":"Sornmeexay Vorasane","nickname":"Doka","sectionId":"sec_2"},{"id":"1768187691690g2xk2","name":"Phousavan Xayyapanya","nickname":"Topten","sectionId":"sec_2"},{"id":"1768187691690k2l5w","name":"Bounthasok Phanavan","nickname":"Boston","sectionId":"sec_2"},{"id":"1768188081499zxl92","name":"Netnaree Mingboupha","nickname":"Naree","sectionId":"sec_3"},{"id":"17681880815047p23f","name":"Kaeothida Phetchampa","nickname":"Moukda","sectionId":"sec_3"},{"id":"1768188081504k6c05","name":"Niphada Inthavong","nickname":"Noey Noey","sectionId":"sec_3"},{"id":"1768188081505bv5ek","name":"Soupharat Philavong","nickname":"Pram Pram","sectionId":"sec_3"},{"id":"1768188081505wneic","name":"Valinphone Chanthaminavong","nickname":"Maybe","sectionId":"sec_3"},{"id":"17681880815065rr4e","name":"Vatsana Louangphasy","nickname":"Youly","sectionId":"sec_3"},{"id":"1768188081506us0eu","name":"Vilada Sounthone","nickname":"June","sectionId":"sec_3"},{"id":"176818808150743r8r","name":"Vilayphet Phosalat","nickname":"Diwka","sectionId":"sec_3"},{"id":"1768188081507rxfzh","name":"Netnapha Ousakoun","nickname":"Ing Ing","sectionId":"sec_3"},{"id":"1768188081507z9moa","name":"Minnie Vilayphon","nickname":"Minnie","sectionId":"sec_3"},{"id":"1768188081508h7ijl","name":"Manida Manykham","nickname":"Ailin","sectionId":"sec_3"},{"id":"1768188081508nx3k7","name":"Soutthida Yakanaki","nickname":"Tina","sectionId":"sec_3"},{"id":"1768188081509bzdo9","name":"Phavana Kaeohavong","nickname":"Party","sectionId":"sec_3"},{"id":"1768188081509nzj65","name":"Maniphone Kaeovilyavong","nickname":"Pinky","sectionId":"sec_3"},{"id":"1768188081509or3s7","name":"Salongxay Phommixay","nickname":"Navin","sectionId":"sec_3"},{"id":"17681880815102rseo","name":"Khampasong Vongphakdy","nickname":"Winner","sectionId":"sec_3"},{"id":"1768188081510aeggo","name":"Thavyxap Viengkamsone","nickname":"Phoupha","sectionId":"sec_3"},{"id":"1768188081510bb49j","name":"Likhitxay Libouapao","nickname":"Likhit","sectionId":"sec_3"},{"id":"176818808151181z7y","name":"Alounyadeth Saenvong","nickname":"Nai","sectionId":"sec_3"},{"id":"176818808151189j8b","name":"Thanousone Louangsamat","nickname":"Micka","sectionId":"sec_3"},{"id":"1768188081511uz22a","name":"Soukmeexay Manyvanh","nickname":"Copter","sectionId":"sec_3"},{"id":"17681880815125w7n8","name":"Anouxsa Faengmany","nickname":"Dino","sectionId":"sec_3"},{"id":"1768188081512mtqid","name":"Phonethideth Khambouaxay","nickname":"Phasok","sectionId":"sec_3"},{"id":"1768188081512pxj4u","name":"Soukthavone Nolinntha","nickname":"Demo","sectionId":"sec_3"},{"id":"1768188081512rf3rp","name":"Thepphaxay Phoumvixay","nickname":"Q","sectionId":"sec_3"},{"id":"1768188473266q2z3g","name":"Phetthida Chaleunsouk","nickname":"Baby","sectionId":"sec_4"},{"id":"1768188473268y9qxz","name":"Chiraphone Khattiyalat","nickname":"Aida","sectionId":"sec_4"},{"id":"1768188473269bfptu","name":"Linrada Khounnuvong","nickname":"Yuri","sectionId":"sec_4"},{"id":"1768188473269l1zht","name":"Palita Xayaphim","nickname":"Meya","sectionId":"sec_4"},{"id":"1768188473270btf55","name":"Manylin Savongthong","nickname":"Nam","sectionId":"sec_4"},{"id":"1768188473270ohbnx","name":"Inthila Phommavanh","nickname":"Milin","sectionId":"sec_4"},{"id":"1768188473271nitg3","name":"Phetsakhone Kaethalong","nickname":"Aphing","sectionId":"sec_4"},{"id":"1768188473271qhvu9","name":"Phet-dala Louanglat","nickname":"Bella","sectionId":"sec_4"},{"id":"17681884732727qpj1","name":"Phimsoupha Latxavong","nickname":"Khaohom","sectionId":"sec_4"},{"id":"1768188473272a96wt","name":"Thidasavan Bounsane","nickname":"Thida","sectionId":"sec_4"},{"id":"1768188473272eccpd","name":"Phoutthida Saendy","nickname":"Nuey","sectionId":"sec_4"},{"id":"17681884732737lju0","name":"Namfon Chaichia","nickname":"Mimor","sectionId":"sec_4"},{"id":"1768188473273fml4e","name":"Fasai Vangxouapao","nickname":"Fasai","sectionId":"sec_4"},{"id":"1768188473273wgncf","name":"Kaolouxi Vangxayyear","nickname":"Lucy","sectionId":"sec_4"},{"id":"17681884732743empu","name":"Anouphap Souphanthone","nickname":"Jojo","sectionId":"sec_4"},{"id":"1768188473274vh8ri","name":"Soutthida Kaeosavang","nickname":"Peng","sectionId":"sec_4"},{"id":"1768188473274x6pqs","name":"Phourixay Louangkhot","nickname":"Mavin","sectionId":"sec_4"},{"id":"1768188473275c0npr","name":"Xayyavong Vilay","nickname":"Tiger","sectionId":"sec_4"},{"id":"1768188473275duxer","name":"Thepphakoun Homsombat","nickname":"Jaokhoun","sectionId":"sec_4"},{"id":"1768188473275z7e81","name":"Thanakhone Chittalath","nickname":"Athen","sectionId":"sec_4"},{"id":"1768188473275zo5yk","name":"Alanda Phanthavong","nickname":"Latte","sectionId":"sec_4"},{"id":"1768188473276bns1d","name":"Phisitxay Sitthidet","nickname":"Newtern","sectionId":"sec_4"},{"id":"1768188473276sj5ko","name":"Inthachak Mounthong","nickname":"Bank","sectionId":"sec_4"},{"id":"1768188473276ugetp","name":"Sokthavy Vongvichit","nickname":"Captain","sectionId":"sec_4"},{"id":"17681884732773ojgt","name":"Vilakone Vitthanakoun","nickname":"Anon","sectionId":"sec_4"},{"id":"17681884732774ryuj","name":"Sokthavy Xaypanya","nickname":"Cooper","sectionId":"sec_4"},{"id":"1768188473277msznp","name":"Bounman Sitsouvong","nickname":"Lion","sectionId":"sec_4"},{"id":"1768188473277tcpus","name":"Chitpanya Vongxay","nickname":"Vinda","sectionId":"sec_4"},{"id":"1768189676656vyirp","name":"Elsa Naphanthalak","nickname":"Elsa","sectionId":"sec_5"},{"id":"17681896766573puem","name":"Anita Thammyphone","nickname":"Anita","sectionId":"sec_5"},{"id":"1768189676657euwad","name":"Moukdalin Soinxay","nickname":"Moukda","sectionId":"sec_5"},{"id":"1768189676658d4fd1","name":"Moukthida Douangchaleun","nickname":"Thida","sectionId":"sec_5"},{"id":"1768189676659bs6op","name":"Alisa Vixay","nickname":"Aphing","sectionId":"sec_5"},{"id":"1768189676659voatx","name":"Viphavady Chittalath","nickname":"Minta","sectionId":"sec_5"},{"id":"1768189676660hc87l","name":"Solada Phommachack","nickname":"Fena","sectionId":"sec_5"},{"id":"1768189676660rffhf","name":"Chanthamaly Phothipanya","nickname":"Dalin","sectionId":"sec_5"},{"id":"1768189676661f2bjo","name":"Nouan-aksone Phommaly","nickname":"Ansan","sectionId":"sec_5"},{"id":"1768189676661p8nzg","name":"Phetdala Thongsavath","nickname":"Mango","sectionId":"sec_5"},{"id":"1768189676662fx6us","name":"Evarin Sommalavong","nickname":"Eva","sectionId":"sec_5"},{"id":"1768189676662sieyy","name":"Souphada Thammavong","nickname":"Yingmeuy","sectionId":"sec_5"},{"id":"1768189676663e67hv","name":"Phasit Sisouvanthong","nickname":"Magnum","sectionId":"sec_5"},{"id":"1768189676663hcrql","name":"Vanxanaxay Phimmasane","nickname":"Navin","sectionId":"sec_5"},{"id":"1768189676663unoh5","name":"Bounxay Saengdavan","nickname":"Ashi","sectionId":"sec_5"},{"id":"17681896766648e955","name":"Souphakone Phommachanh","nickname":"Garfield","sectionId":"sec_5"},{"id":"1768189676664xnfv6","name":"Santisok Saengchaleun","nickname":"Tonka","sectionId":"sec_5"},{"id":"1768189676665dskvf","name":"Xay-inthasone Vixay","nickname":"Xainoy","sectionId":"sec_5"},{"id":"1768189676665k32y7","name":"Yichan Boliboun","nickname":"Yisan","sectionId":"sec_5"},{"id":"1768189676665l3dbh","name":"Thanyasone Tounalom","nickname":"Fluke","sectionId":"sec_5"},{"id":"1768189676666bpkic","name":"Santi Dalasaen","nickname":"Newtern","sectionId":"sec_5"},{"id":"1768189676666ly56n","name":"Toula Xayyahan","nickname":"Peter","sectionId":"sec_5"},{"id":"1768189676666zabew","name":"Soutpaseut Khiaovongphachan","nickname":"Newton","sectionId":"sec_5"},{"id":"17681900686048ea9b","name":"Chansoupha Phanthavong","nickname":"Bowie","sectionId":"sec_6"},{"id":"1768190068605gyd7d","name":"Phimfasai Thongsavath","nickname":"Lisa","sectionId":"sec_6"},{"id":"1768190068605mnon6","name":"Alina Soukchanthala","nickname":"Candy","sectionId":"sec_6"},{"id":"17681900686061jlwt","name":"Navita Boothnate","nickname":"Nita","sectionId":"sec_6"},{"id":"176819006860650b0k","name":"Navida Boothnate","nickname":"Nida","sectionId":"sec_6"},{"id":"1768190068606u3qdq","name":"Namneung Daokhammouan","nickname":"Namneung","sectionId":"sec_6"},{"id":"17681900686077wo0l","name":"Vonvilay Meemounphon","nickname":"Toukta","sectionId":"sec_6"},{"id":"1768190068607bdzko","name":"Fathida Nanthalangsy","nickname":"Fanoy","sectionId":"sec_6"},{"id":"1768190068607euzpn","name":"Valannya Vongkhamsouk","nickname":"Valin","sectionId":"sec_6"},{"id":"1768190068608hise8","name":"Souphansa Vorabout","nickname":"Baby","sectionId":"sec_6"},{"id":"1768190068608krddv","name":"Phonethanakit Inthavong","nickname":"Phon","sectionId":"sec_6"},{"id":"1768190068608y4tkx","name":"Lattanamany Louanglat","nickname":"Stamp","sectionId":"sec_6"},{"id":"17681900686093r80b","name":"Adilat Sourinsak","nickname":"Kina","sectionId":"sec_6"},{"id":"1768190068609ja631","name":"Souliyadet Khounboulom","nickname":"Star","sectionId":"sec_6"},{"id":"1768190068609tridi","name":"Oudomxap Chaleunsouk","nickname":"Brooklyn","sectionId":"sec_6"},{"id":"1768190068610f4ask","name":"Phongxap Chandinavong","nickname":"Copter","sectionId":"sec_6"},{"id":"1768190068610qu3rt","name":"Noah Songbriayi","nickname":"Noah","sectionId":"sec_6"},{"id":"1768190068610ydkx1","name":"Xettha Phetthavisaeng","nickname":"Lemon","sectionId":"sec_6"},{"id":"176819006861131we3","name":"Thanakhone Louangaphai","nickname":"Winner","sectionId":"sec_6"},{"id":"1768190068611e4mj8","name":"Viengphone Sidala","nickname":"Euro","sectionId":"sec_6"},{"id":"1768190068611nqj85","name":"Phetsakda Souliya","nickname":"Thala","sectionId":"sec_6"},{"id":"1768190068611oeoak","name":"Sirikone Kaeodouangdy","nickname":"Eric","sectionId":"sec_6"},{"id":"17681900686120mwdu","name":"Detasa Somchanmavong","nickname":"Oneil","sectionId":"sec_6"},{"id":"1768190068612pt0pg","name":"Soukpasong Phansamay","nickname":"Audi","sectionId":"sec_6"},{"id":"1768190068612wt7w2","name":"Thavyxok Vorachakdaovy","nickname":"Bronte","sectionId":"sec_6"},{"id":"1768190068613abi69","name":"Phonepaseuth Phoutthavong","nickname":"Alex","sectionId":"sec_6"},{"id":"1768190612438oon2t","name":"Thipdavanh Souksala","nickname":"Tamon","sectionId":"sec_7"},{"id":"17681906124390d70v","name":"Nalisa Chanthalasy","nickname":"Malin","sectionId":"sec_7"},{"id":"1768190612440fmihl","name":"Phetsavan Latxavong","nickname":"Vanmai","sectionId":"sec_7"},{"id":"1768190612440il2fd","name":"Panisa Chitkhanti","nickname":"June","sectionId":"sec_7"},{"id":"17681906124412mgmf","name":"Panisa Sisombat","nickname":"Lisa","sectionId":"sec_7"},{"id":"17681906124418q4g9","name":"Piyamone Sichanthavong","nickname":"Mindy","sectionId":"sec_7"},{"id":"1768190612441cj3vq","name":"Palamy Phimmaxak","nickname":"Thapthim","sectionId":"sec_7"},{"id":"1768190612442limbt","name":"Minaphone Saeng-amphon","nickname":"Tataem","sectionId":"sec_7"},{"id":"1768190612442wxvup","name":"Phet-oulay Vilay","nickname":"Ngoc","sectionId":"sec_7"},{"id":"17681906124430a60a","name":"Manisa Chansina","nickname":"Maynie","sectionId":"sec_7"},{"id":"1768190612443e1rj0","name":"Sawoeysouk Xaybounliang","nickname":"Demi","sectionId":"sec_7"},{"id":"1768190612443t1v1i","name":"Phoutthida Panyanouvong","nickname":"Netty","sectionId":"sec_7"},{"id":"176819061244404vhe","name":"Naphavilay Hongvilay","nickname":"Baby","sectionId":"sec_7"},{"id":"1768190612444itkqe","name":"Phoudit Chitkhanti","nickname":"Jett","sectionId":"sec_7"},{"id":"1768190612445j7hup","name":"Koko Champa","nickname":"Coco","sectionId":"sec_7"},{"id":"1768190612445l680d","name":"Hatsady Soukhavong","nickname":"Danny","sectionId":"sec_7"},{"id":"1768190612446950xf","name":"Khamchanphichit Manikham","nickname":"Biw","sectionId":"sec_7"},{"id":"1768190612446dpbou","name":"Phoukhaoka Phanthavong","nickname":"Captan","sectionId":"sec_7"},{"id":"1768190612446vteif","name":"Ekkaphon Khounphilavan","nickname":"Man","sectionId":"sec_7"},{"id":"17681906124479r3pj","name":"Souphasone Dalaphet","nickname":"Khamaiy","sectionId":"sec_7"},{"id":"1768190612447csc1r","name":"Phakin Saengsay","nickname":"Jaozaiy","sectionId":"sec_7"},{"id":"1768190612447jmy56","name":"Visanou Boutsamay","nickname":"Viwill","sectionId":"sec_7"},{"id":"1768190612447k2zvs","name":"Thavyxap Phoumyvong","nickname":"Benly","sectionId":"sec_7"},{"id":"17681906124488a2vi","name":"Thavisouk Ounmano","nickname":"Mickey","sectionId":"sec_7"},{"id":"1768190612448c7g34","name":"Vilasone Phommany","nickname":"Bruno","sectionId":"sec_7"},{"id":"1768190612448j7vi9","name":"Xaynakhone Phimmasane","nickname":"Nai","sectionId":"sec_7"}]};
+        const PRELOADED_DATA = {"sections":[{"id":"sec_1","name":"Langsat ລັງ​ສາດ","maxScores":{"jan":50}},{"id":"sec_2","name":"Longkong ​ລອງກອງ","maxScores":{}},{"id":"sec_3","name":"​Tomato ເລັ່ນ","maxScores":{}},{"id":"sec_4","name":"​Grapes ລາ​ແຊ໋ງ","maxScores":{}},{"id":"sec_5","name":"​Lynchee ລິນ​ຈີ່","maxScores":{}},{"id":"sec_6","name":"Lamut ລະ​ມຸດ","maxScores":{}},{"id":"sec_7","name":"​Lamyay ລຳ​ໃຍ","maxScores":{}}],"students":[{"id":"1766128854295wdydg","name":"Tanya Inthalangsy","nickname":"Tanya","sectionId":"sec_1"},{"id":"1766128854298p5k97","name":"Nanthida Souliyavong","nickname":"Anew","sectionId":"sec_1"},{"id":"17661288542998wnrl","name":"Thipphaphone Siphanith","nickname":"Bella","sectionId":"sec_1"},{"id":"17661288543003tlgn","name":"Aphatsala Nanthavong","nickname":"Nirin","sectionId":"sec_1"},{"id":"1766128854300ogpo2","name":"Peeyada Insixiengmai","nickname":"Namhom","sectionId":"sec_1"},{"id":"1766128854302ezr11","name":"Phetmany Osoulin","nickname":"Emmy","sectionId":"sec_1"},{"id":"1766128854302m4ovd","name":"Souknapha Kingvongsa","nickname":"Pangpang","sectionId":"sec_1"},{"id":"176612885430339q62","name":"Namthida Keobounla","nickname":"Aura","sectionId":"sec_1"},{"id":"1766128854303of8fa","name":"Phonemanee Lattana","nickname":"Beena","sectionId":"sec_1"},{"id":"1766128854303rt07j","name":"Kanyalat Lueanvilay","nickname":"Disney","sectionId":"sec_1"},{"id":"1766128854303ue17i","name":"Sounjangwei Sisongkham","nickname":"Jangwei","sectionId":"sec_1"},{"id":"17661288543045nw29","name":"Phantue Phommavichith","nickname":"Phantue","sectionId":"sec_1"},{"id":"1766128854304ym09o","name":"Thipphasone Basavanhthong","nickname":"Namthip","sectionId":"sec_1"},{"id":"1766128854304yq3ce","name":"Moukthida Singkhambua","nickname":"Aomsin","sectionId":"sec_1"},{"id":"1766128854304z8fxi","name":"Palamee Tanongkham","nickname":"Ben","sectionId":"sec_1"},{"id":"17661288543059n7hs","name":"Soukphakone Sysouphan","nickname":"Soukphakone","sectionId":"sec_1"},{"id":"1766128854305ayh8y","name":"Quangkhai Nguyennhu","nickname":"Navin","sectionId":"sec_1"},{"id":"1766128854305k6ccw","name":"Pounxayya Houngheuangmanh","nickname":"Lion","sectionId":"sec_1"},{"id":"1766128854305mgt8c","name":"Xaynakhone Vanhkham","nickname":"Phupha","sectionId":"sec_1"},{"id":"17661288543068kcwp","name":"Phisithxay Sanatem","nickname":"Potter","sectionId":"sec_1"},{"id":"1766128854306anwn7","name":"Sonsai Daeng Misai","nickname":"Fat","sectionId":"sec_1"},{"id":"1766128854306l1w27","name":"Ariyasack Rasaphon","nickname":"Thewise","sectionId":"sec_1"},{"id":"1766128854306wuete","name":"Phetsavanh Chalernsack","nickname":"Tutor","sectionId":"sec_1"},{"id":"17661288543079hv5a","name":"Sonexay Sichantha","nickname":"Phayu","sectionId":"sec_1"},{"id":"1766128854307cltaz","name":"Super Phonhalard","nickname":"Super","sectionId":"sec_1"},{"id":"1766128854307guut7","name":"Thavisouk Ounmano","nickname":"Mickey","sectionId":"sec_1"},{"id":"1768187691679yiumv","name":"Vannapha Sikounlabout","nickname":"Anya","sectionId":"sec_2"},{"id":"176818769168093cb5","name":"Silathip Chanthavong","nickname":"Celine","sectionId":"sec_2"},{"id":"1768187691680czvz3","name":"Minthila Phommanin","nickname":"Minnie","sectionId":"sec_2"},{"id":"1768187691680hotls","name":"Phonethida Bounheuang","nickname":"Panao","sectionId":"sec_2"},{"id":"1768187691681nlozr","name":"Nitdavorn Bouaphachan","nickname":"Nong Mai","sectionId":"sec_2"},{"id":"1768187691681vrq20","name":"Somvang Linavong","nickname":"Ai Ton","sectionId":"sec_2"},{"id":"1768187691682hxh7q","name":"Sornsakda Singhavong","nickname":"Yota","sectionId":"sec_2"},{"id":"1768187691682jk6n3","name":"Sanasone Davilayhong","nickname":"Anon","sectionId":"sec_2"},{"id":"17681876916834in95","name":"Nakhonexap Laoly","nickname":"Avin","sectionId":"sec_2"},{"id":"1768187691683as5m4","name":"Thavysouk Tommany","nickname":"Yai","sectionId":"sec_2"},{"id":"1768187691684cpttm","name":"Sokthavy Phongpachit","nickname":"Jame","sectionId":"sec_2"},{"id":"1768187691684g5nlu","name":"Alounyadeth Sayoudone","nickname":"Copter","sectionId":"sec_2"},{"id":"17681876916858ff5q","name":"Nilada Phithakvong","nickname":"Phamee","sectionId":"sec_2"},{"id":"17681876916859rtxb","name":"Douangdao Vongvilay","nickname":"Bao","sectionId":"sec_2"},{"id":"1768187691686p92hv","name":"Bounthidaly Xayyasaeng","nickname":"Bonus","sectionId":"sec_2"},{"id":"1768187691686qdr3f","name":"Khuansouda Chanthavong","nickname":"Mila","sectionId":"sec_2"},{"id":"176818769168761a11","name":"Valout Liaolaeng","nickname":"Nong Ka","sectionId":"sec_2"},{"id":"1768187691687c8csy","name":"Analin Saengkham","nickname":"Terra","sectionId":"sec_2"},{"id":"1768187691687cpqtu","name":"Anavin Kaeovanthien","nickname":"Amy","sectionId":"sec_2"},{"id":"1768187691688owodk","name":"Sitthisok Saeng-outhone","nickname":"Iron","sectionId":"sec_2"},{"id":"1768187691688xtc5i","name":"Nanthakone Phanthavy","nickname":"Owen","sectionId":"sec_2"},{"id":"17681876916895esde","name":"Phonphain Chula","nickname":"Bio","sectionId":"sec_2"},{"id":"1768187691689m9kuk","name":"Sitthidet Louangphakdy","nickname":"Kop","sectionId":"sec_2"},{"id":"1768187691689v1mnb","name":"Sornmeexay Vorasane","nickname":"Doka","sectionId":"sec_2"},{"id":"1768187691690g2xk2","name":"Phousavan Xayyapanya","nickname":"Topten","sectionId":"sec_2"},{"id":"1768187691690k2l5w","name":"Bounthasok Phanavan","nickname":"Boston","sectionId":"sec_2"},{"id":"1768188081499zxl92","name":"Netnaree Mingboupha","nickname":"Naree","sectionId":"sec_3"},{"id":"17681880815047p23f","name":"Kaeothida Phetchampa","nickname":"Moukda","sectionId":"sec_3"},{"id":"1768188081504k6c05","name":"Niphada Inthavong","nickname":"Noey Noey","sectionId":"sec_3"},{"id":"1768188081505bv5ek","name":"Soupharat Philavong","nickname":"Pram Pram","sectionId":"sec_3"},{"id":"1768188081505wneic","name":"Valinphone Chanthaminavong","nickname":"Maybe","sectionId":"sec_3"},{"id":"17681880815065rr4e","name":"Vatsana Louangphasy","nickname":"Youly","sectionId":"sec_3"},{"id":"1768188081506us0eu","name":"Vilada Sounthone","nickname":"June","sectionId":"sec_3"},{"id":"176818808150743r8r","name":"Vilayphet Phosalat","nickname":"Diwka","sectionId":"sec_3"},{"id":"1768188081507rxfzh","name":"Netnapha Ousakoun","nickname":"Ing Ing","sectionId":"sec_3"},{"id":"1768188081507z9moa","name":"Minnie Vilayphon","nickname":"Minnie","sectionId":"sec_3"},{"id":"1768188081508h7ijl","name":"Manida Manykham","nickname":"Ailin","sectionId":"sec_3"},{"id":"1768188081508nx3k7","name":"Soutthida Yakanaki","nickname":"Tina","sectionId":"sec_3"},{"id":"1768188081509bzdo9","name":"Phavana Kaeohavong","nickname":"Party","sectionId":"sec_3"},{"id":"1768188081509nzj65","name":"Maniphone Kaeovilyavong","nickname":"Pinky","sectionId":"sec_3"},{"id":"1768188081509or3s7","name":"Salongxay Phommixay","nickname":"Navin","sectionId":"sec_3"},{"id":"17681880815102rseo","name":"Khampasong Vongphakdy","nickname":"Winner","sectionId":"sec_3"},{"id":"1768188081510aeggo","name":"Thavyxap Viengkamsone","nickname":"Phoupha","sectionId":"sec_3"},{"id":"1768188081510bb49j","name":"Likhitxay Libouapao","nickname":"Likhit","sectionId":"sec_3"},{"id":"176818808151181z7y","name":"Alounyadeth Saenvong","nickname":"Nai","sectionId":"sec_3"},{"id":"176818808151189j8b","name":"Thanousone Louangsamat","nickname":"Micka","sectionId":"sec_3"},{"id":"1768188081511uz22a","name":"Soukmeexay Manyvanh","nickname":"Copter","sectionId":"sec_3"},{"id":"17681880815125w7n8","name":"Anouxsa Faengmany","nickname":"Dino","sectionId":"sec_3"},{"id":"1768188081512mtqid","name":"Phonethideth Khambouaxay","nickname":"Phasok","sectionId":"sec_3"},{"id":"1768188081512pxj4u","name":"Soukthavone Nolinntha","nickname":"Demo","sectionId":"sec_3"},{"id":"1768188081512rf3rp","name":"Thepphaxay Phoumvixay","nickname":"Q","sectionId":"sec_3"},{"id":"1768188473266q2z3g","name":"Phetthida Chaleunsouk","nickname":"Baby","sectionId":"sec_4"},{"id":"1768188473268y9qxz","name":"Chiraphone Khattiyalat","nickname":"Aida","sectionId":"sec_4"},{"id":"1768188473269bfptu","name":"Linrada Khounnuvong","nickname":"Yuri","sectionId":"sec_4"},{"id":"1768188473269l1zht","name":"Palita Xayaphim","nickname":"Meya","sectionId":"sec_4"},{"id":"1768188473270btf55","name":"Manylin Savongthong","nickname":"Nam","sectionId":"sec_4"},{"id":"1768188473270ohbnx","name":"Inthila Phommavanh","nickname":"Milin","sectionId":"sec_4"},{"id":"1768188473271nitg3","name":"Phetsakhone Kaethalong","nickname":"Aphing","sectionId":"sec_4"},{"id":"1768188473271qhvu9","name":"Phet-dala Louanglat","nickname":"Bella","sectionId":"sec_4"},{"id":"17681884732727qpj1","name":"Phimsoupha Latxavong","nickname":"Khaohom","sectionId":"sec_4"},{"id":"1768188473272a96wt","name":"Thidasavan Bounsane","nickname":"Thida","sectionId":"sec_4"},{"id":"1768188473272eccpd","name":"Phoutthida Saendy","nickname":"Nuey","sectionId":"sec_4"},{"id":"17681884732737lju0","name":"Namfon Chaichia","nickname":"Mimor","sectionId":"sec_4"},{"id":"1768188473273fml4e","name":"Fasai Vangxouapao","nickname":"Fasai","sectionId":"sec_4"},{"id":"1768188473273wgncf","name":"Kaolouxi Vangxayyear","nickname":"Lucy","sectionId":"sec_4"},{"id":"17681884732743empu","name":"Anouphap Souphanthone","nickname":"Jojo","sectionId":"sec_4"},{"id":"1768188473274vh8ri","name":"Soutthida Kaeosavang","nickname":"Peng","sectionId":"sec_4"},{"id":"1768188473274x6pqs","name":"Phourixay Louangkhot","nickname":"Mavin","sectionId":"sec_4"},{"id":"1768188473275c0npr","name":"Xayyavong Vilay","nickname":"Tiger","sectionId":"sec_4"},{"id":"1768188473275duxer","name":"Thepphakoun Homsombat","nickname":"Jaokhoun","sectionId":"sec_4"},{"id":"1768188473275z7e81","name":"Thanakhone Chittalath","nickname":"Athen","sectionId":"sec_4"},{"id":"1768188473275zo5yk","name":"Alanda Phanthavong","nickname":"Latte","sectionId":"sec_4"},{"id":"1768188473276bns1d","name":"Phisitxay Sitthidet","nickname":"Newtern","sectionId":"sec_4"},{"id":"1768188473276sj5ko","name":"Inthachak Mounthong","nickname":"Bank","sectionId":"sec_4"},{"id":"1768188473276ugetp","name":"Sokthavy Vongvichit","nickname":"Captain","sectionId":"sec_4"},{"id":"17681884732773ojgt","name":"Vilakone Vitthanakoun","nickname":"Anon","sectionId":"sec_4"},{"id":"17681884732774ryuj","name":"Sokthavy Xaypanya","nickname":"Cooper","sectionId":"sec_4"},{"id":"1768188473277msznp","name":"Bounman Sitsouvong","nickname":"Lion","sectionId":"sec_4"},{"id":"1768188473277tcpus","name":"Chitpanya Vongxay","nickname":"Vinda","sectionId":"sec_4"},{"id":"1768189676656vyirp","name":"Elsa Naphanthalak","nickname":"Elsa","sectionId":"sec_5"},{"id":"17681896766573puem","name":"Anita Thammyphone","nickname":"Anita","sectionId":"sec_5"},{"id":"1768189676657euwad","name":"Moukdalin Soinxay","nickname":"Moukda","sectionId":"sec_5"},{"id":"17681896766589niq0","name":"Manyphet Louangamat","nickname":"Namthip","sectionId":"sec_5"},{"id":"1768189676658d4fd1","name":"Moukthida Douangchaleun","nickname":"Thida","sectionId":"sec_5"},{"id":"17681896766595pmm0","name":"Phetmixay Xayyavong","nickname":"Amuey","sectionId":"sec_5"},{"id":"1768189676659bs6op","name":"Alisa Vixay","nickname":"Aphing","sectionId":"sec_5"},{"id":"1768189676659voatx","name":"Viphavady Chittalath","nickname":"Minta","sectionId":"sec_5"},{"id":"1768189676660hc87l","name":"Solada Phommachack","nickname":"Fena","sectionId":"sec_5"},{"id":"1768189676660rffhf","name":"Chanthamaly Phothipanya","nickname":"Dalin","sectionId":"sec_5"},{"id":"1768189676661f2bjo","name":"Nouan-aksone Phommaly","nickname":"Ansan","sectionId":"sec_5"},{"id":"1768189676661p8nzg","name":"Phetdala Thongsavath","nickname":"Mango","sectionId":"sec_5"},{"id":"1768189676662fx6us","name":"Evarin Sommalavong","nickname":"Eva","sectionId":"sec_5"},{"id":"1768189676662sieyy","name":"Souphada Thammavong","nickname":"Yingmeuy","sectionId":"sec_5"},{"id":"1768189676663e67hv","name":"Phasit Sisouvanthong","nickname":"Magnum","sectionId":"sec_5"},{"id":"1768189676663hcrql","name":"Vanxanaxay Phimmasane","nickname":"Navin","sectionId":"sec_5"},{"id":"1768189676663unoh5","name":"Bounxay Saengdavan","nickname":"Ashi","sectionId":"sec_5"},{"id":"17681896766648e955","name":"Souphakone Phommachanh","nickname":"Garfield","sectionId":"sec_5"},{"id":"1768189676664xnfv6","name":"Santisok Saengchaleun","nickname":"Tonka","sectionId":"sec_5"},{"id":"1768189676665dskvf","name":"Xay-inthasone Vixay","nickname":"Xainoy","sectionId":"sec_5"},{"id":"1768189676665k32y7","name":"Yichan Boliboun","nickname":"Yisan","sectionId":"sec_5"},{"id":"1768189676665l3dbh","name":"Thanyasone Tounalom","nickname":"Fluke","sectionId":"sec_5"},{"id":"1768189676666bpkic","name":"Santi Dalasaen","nickname":"Newtern","sectionId":"sec_5"},{"id":"1768189676666ly56n","name":"Toula Xayyahan","nickname":"Peter","sectionId":"sec_5"},{"id":"1768189676666zabew","name":"Soutpaseut Khiaovongphachan","nickname":"Newton","sectionId":"sec_5"},{"id":"17681900686048ea9b","name":"Chansoupha Phanthavong","nickname":"Bowie","sectionId":"sec_6"},{"id":"1768190068605gyd7d","name":"Phimfasai Thongsavath","nickname":"Lisa","sectionId":"sec_6"},{"id":"1768190068605mnon6","name":"Alina Soukchanthala","nickname":"Candy","sectionId":"sec_6"},{"id":"17681900686061jlwt","name":"Navita Boothnate","nickname":"Nita","sectionId":"sec_6"},{"id":"176819006860650b0k","name":"Navida Boothnate","nickname":"Nida","sectionId":"sec_6"},{"id":"1768190068606u3qdq","name":"Namneung Daokhammouan","nickname":"Namneung","sectionId":"sec_6"},{"id":"17681900686077wo0l","name":"Vonvilay Meemounphon","nickname":"Toukta","sectionId":"sec_6"},{"id":"1768190068607bdzko","name":"Fathida Nanthalangsy","nickname":"Fanoy","sectionId":"sec_6"},{"id":"1768190068607euzpn","name":"Valannya Vongkhamsouk","nickname":"Valin","sectionId":"sec_6"},{"id":"1768190068608hise8","name":"Souphansa Vorabout","nickname":"Baby","sectionId":"sec_6"},{"id":"1768190068608krddv","name":"Phonethanakit Inthavong","nickname":"Phon","sectionId":"sec_6"},{"id":"1768190068608y4tkx","name":"Lattanamany Louanglat","nickname":"Stamp","sectionId":"sec_6"},{"id":"17681900686093r80b","name":"Adilat Sourinsak","nickname":"Kina","sectionId":"sec_6"},{"id":"1768190068609ja631","name":"Souliyadet Khounboulom","nickname":"Star","sectionId":"sec_6"},{"id":"1768190068609tridi","name":"Oudomxap Chaleunsouk","nickname":"Brooklyn","sectionId":"sec_6"},{"id":"1768190068610f4ask","name":"Phongxap Chandinavong","nickname":"Copter","sectionId":"sec_6"},{"id":"1768190068610qu3rt","name":"Noah Songbriayi","nickname":"Noah","sectionId":"sec_6"},{"id":"1768190068610ydkx1","name":"Xettha Phetthavisaeng","nickname":"Lemon","sectionId":"sec_6"},{"id":"176819006861131we3","name":"Thanakhone Louangaphai","nickname":"Winner","sectionId":"sec_6"},{"id":"1768190068611e4mj8","name":"Viengphone Sidala","nickname":"Euro","sectionId":"sec_6"},{"id":"1768190068611nqj85","name":"Phetsakda Souliya","nickname":"Thala","sectionId":"sec_6"},{"id":"1768190068611oeoak","name":"Sirikone Kaeodouangdy","nickname":"Eric","sectionId":"sec_6"},{"id":"17681900686120mwdu","name":"Detasa Somchanmavong","nickname":"Oneil","sectionId":"sec_6"},{"id":"1768190068612pt0pg","name":"Soukpasong Phansamay","nickname":"Audi","sectionId":"sec_6"},{"id":"1768190068612wt7w2","name":"Thavyxok Vorachakdaovy","nickname":"Bronte","sectionId":"sec_6"},{"id":"1768190068613abi69","name":"Phonepaseuth Phoutthavong","nickname":"Alex","sectionId":"sec_6"},{"id":"1768190612438oon2t","name":"Thipdavanh Souksala","nickname":"Tamon","sectionId":"sec_7"},{"id":"17681906124390d70v","name":"Nalisa Chanthalasy","nickname":"Malin","sectionId":"sec_7"},{"id":"1768190612440fmihl","name":"Phetsavan Latxavong","nickname":"Vanmai","sectionId":"sec_7"},{"id":"1768190612440il2fd","name":"Panisa Chitkhanti","nickname":"June","sectionId":"sec_7"},{"id":"17681906124412mgmf","name":"Panisa Sisombat","nickname":"Lisa","sectionId":"sec_7"},{"id":"17681906124418q4g9","name":"Piyamone Sichanthavong","nickname":"Mindy","sectionId":"sec_7"},{"id":"1768190612441cj3vq","name":"Palamy Phimmaxak","nickname":"Thapthim","sectionId":"sec_7"},{"id":"1768190612442limbt","name":"Minaphone Saeng-amphon","nickname":"Tataem","sectionId":"sec_7"},{"id":"1768190612442wxvup","name":"Phet-oulay Vilay","nickname":"Ngoc","sectionId":"sec_7"},{"id":"17681906124430a60a","name":"Manisa Chansina","nickname":"Maynie","sectionId":"sec_7"},{"id":"1768190612443e1rj0","name":"Sawoeysouk Xaybounliang","nickname":"Demi","sectionId":"sec_7"},{"id":"1768190612443t1v1i","name":"Phoutthida Panyanouvong","nickname":"Netty","sectionId":"sec_7"},{"id":"176819061244404vhe","name":"Naphavilay Hongvilay","nickname":"Baby","sectionId":"sec_7"},{"id":"1768190612444itkqe","name":"Phoudit Chitkhanti","nickname":"Jett","sectionId":"sec_7"},{"id":"1768190612445j7hup","name":"Koko Champa","nickname":"Coco","sectionId":"sec_7"},{"id":"1768190612445l680d","name":"Hatsady Soukhavong","nickname":"Danny","sectionId":"sec_7"},{"id":"1768190612446950xf","name":"Khamchanphichit Manikham","nickname":"Biw","sectionId":"sec_7"},{"id":"1768190612446dpbou","name":"Phoukhaoka Phanthavong","nickname":"Captan","sectionId":"sec_7"},{"id":"1768190612446vteif","name":"Ekkaphon Khounphilavan","nickname":"Man","sectionId":"sec_7"},{"id":"17681906124479r3pj","name":"Souphasone Dalaphet","nickname":"Khamaiy","sectionId":"sec_7"},{"id":"1768190612447csc1r","name":"Phakin Saengsay","nickname":"Jaozaiy","sectionId":"sec_7"},{"id":"1768190612447jmy56","name":"Visanou Boutsamay","nickname":"Viwill","sectionId":"sec_7"},{"id":"1768190612447k2zvs","name":"Thavyxap Phoumyvong","nickname":"Benly","sectionId":"sec_7"},{"id":"17681906124488a2vi","name":"Thavisouk Ounmano","nickname":"Mickey","sectionId":"sec_7"},{"id":"1768190612448c7g34","name":"Vilasone Phommany","nickname":"Bruno","sectionId":"sec_7"},{"id":"1768190612448j7vi9","name":"Xaynakhone Phimmasane","nickname":"Nai","sectionId":"sec_7"}]};
 
         const MONTHS = [
             { key: 'jan', label: 'January' },
@@ -711,9 +704,9 @@
         
         // Default Home Config
         let homeConfig = {
-            title: "Nurturing Little Minds\nBuilding Big Dreams",
+            title: "Blooming Hearts &\nBright Minds",
             subtitle: "At Neerada School, we believe every child is a unique star. Our Kindergarten 3 program blends playful discovery with foundational learning to prepare them for a bright future.",
-            bgUrl: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1920&q=80"
+            bgUrl: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
         };
         
         // --- Helper: Get Collection Paths ---
@@ -730,10 +723,17 @@
 
         // --- Auth & Init ---
         const initAuth = async () => {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Auth Error:", error);
+                document.getElementById('auth-status').classList.remove('bg-red-400', 'animate-pulse');
+                document.getElementById('auth-status').classList.add('bg-gray-400');
+                document.getElementById('auth-status').title = "Auth Failed";
             }
         };
 
@@ -750,27 +750,31 @@
                 document.getElementById('auth-status').classList.add('bg-emerald-400');
                 document.getElementById('auth-status').title = "Connected to Firebase";
                 
-                // Parallel Data Loading
-                const [sections, settingsVoid, logoVoid] = await Promise.all([
-                    getAllSections(),
-                    loadSettings(),
-                    loadLogo()
-                ]);
+                try {
+                    // Parallel Data Loading
+                    const [sections, settingsVoid, logoVoid] = await Promise.all([
+                        getAllSections(),
+                        loadSettings(),
+                        loadLogo()
+                    ]);
 
-                // Data Integrity Check
-                if (sections.length === 0) {
-                    console.log("No data found. Seeding...");
-                    await window.loadK3Data(true);
-                    return;
-                }
+                    // Data Integrity Check
+                    if (sections.length === 0) {
+                        console.log("No data found. Seeding...");
+                        await window.loadK3Data(true);
+                        return;
+                    }
 
-                await renderSectionTabs(sections);
-                document.getElementById('copyright-year').textContent = new Date().getFullYear();
+                    await renderSectionTabs(sections);
+                    document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-                if (sections.length > 0) {
-                    selectSection(sections[0].id);
-                } else {
-                    document.getElementById('empty-state').innerHTML = `<p class="text-slate-400">No sections found.</p>`;
+                    if (sections.length > 0) {
+                        selectSection(sections[0].id);
+                    } else {
+                        document.getElementById('empty-state').innerHTML = `<p class="text-slate-400">No sections found.</p>`;
+                    }
+                } catch (err) {
+                    console.error("Data Load Error:", err);
                 }
             }
         };
@@ -872,7 +876,7 @@
         // --- Home Page Customization Logic ---
         
         const applyHomeConfigToDOM = () => {
-            document.getElementById('home-hero-title').innerHTML = homeConfig.title.replace(/\n/g, '<br>').replace('Little Minds', '<span class="text-primary-600">Little Minds</span>');
+            document.getElementById('home-hero-title').innerHTML = homeConfig.title.replace(/\n/g, '<br>').replace('Bright Minds', '<span class="text-primary-600">Bright Minds</span>');
             document.getElementById('home-hero-subtitle').textContent = homeConfig.subtitle;
             document.getElementById('home-hero-section').style.backgroundImage = `url('${homeConfig.bgUrl}')`;
         };
@@ -1434,7 +1438,7 @@
         window.closeModal = (id) => document.getElementById(id).classList.add('hidden');
 
         // --- Factory Reset ---
-        window.factoryReset = async () => {
+        async function factoryReset() {
             if (!confirm("DANGER: This will permanently delete ALL your data (Students, Scores, Settings). This cannot be undone. Are you sure?")) return;
             if (!confirm("Are you really sure? Last warning.")) return;
             
@@ -1457,10 +1461,11 @@
                 alert("Reset failed: " + e.message);
             }
         };
+        window.factoryReset = factoryReset;
 
         // --- Data Handling ---
         
-        window.exportData = async () => {
+        async function exportData() {
             const sections = await getAllSections();
             const students = await getStudents(currentSectionId); // Export just current section or loop all?
             // To do a full backup, we need all students from all sections.
@@ -1475,6 +1480,7 @@
             a.download = 'K3_Grading_Backup.json';
             a.click();
         };
+        window.exportData = exportData;
 
         window.handleRestore = (event) => {
             const file = event.target.files[0];
