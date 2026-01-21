@@ -754,6 +754,7 @@
         const initApp = () => {
             initAuth();
             onAuthStateChanged(auth, handleUser);
+            // Default view to home
             window.switchView('home'); 
         };
 
@@ -765,12 +766,8 @@
                 document.getElementById('auth-status').title = "Connected to Firebase";
                 
                 try {
-                    // Parallel Data Loading
-                    const [sections, settingsVoid, logoVoid] = await Promise.all([
-                        getAllSections(),
-                        loadSettings(),
-                        loadLogo()
-                    ]);
+                    // 1. Fetch Sections First (Critical for dashboard)
+                    const sections = await getAllSections();
 
                     // Data Integrity Check
                     if (sections.length === 0) {
@@ -779,14 +776,24 @@
                         return;
                     }
 
+                    // Render Tabs Immediately
                     await renderSectionTabs(sections);
                     document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
+                    // Load Dashboard with First Section if available
                     if (sections.length > 0) {
+                        // Ensure School Year is set before loading students
+                        if(!currentSchoolYear) currentSchoolYear = 'SY 2025-2026';
+                        
                         selectSection(sections[0].id);
                     } else {
                         document.getElementById('empty-state').innerHTML = `<p class="text-slate-400">No sections found.</p>`;
                     }
+
+                    // 2. Load Non-Critical Data in Background
+                    loadSettings(); 
+                    loadLogo();
+
                 } catch (err) {
                     console.error("Data Load Error:", err);
                 }
@@ -890,7 +897,7 @@
         // --- Home Page Customization Logic ---
         
         const applyHomeConfigToDOM = () => {
-            document.getElementById('home-hero-title').innerHTML = homeConfig.title.replace(/\n/g, '<br>').replace('Bright Minds', '<span class="text-primary-600">Bright Minds</span>');
+            document.getElementById('home-hero-title').innerHTML = homeConfig.title.replace(/\n/g, '<br>').replace('Bright Minds', '<span class="text-primary-300">Bright Minds</span>');
             document.getElementById('home-hero-subtitle').textContent = homeConfig.subtitle;
             document.getElementById('home-hero-section').style.backgroundImage = `url('${homeConfig.bgUrl}')`;
         };
@@ -934,6 +941,40 @@
                 }
             };
             reader.readAsDataURL(file);
+        };
+
+        window.handleFaviconUpload = (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 200 * 1024) {
+                alert("File too large. Max 200KB.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64 = e.target.result;
+                if (userId) {
+                    // FIXED: Save to 'favicon' document, not 'school_logo'
+                    await setDoc(doc(db, getDataPath('settings'), 'favicon'), { data: base64 }, { merge: true });
+                    updateFaviconDOM(base64);
+                    alert("Favicon saved successfully!");
+                } else {
+                    alert("Not connected to DB. Cannot save favicon.");
+                }
+            };
+            reader.readAsDataURL(file);
+        };
+
+        const updateFaviconDOM = (base64) => {
+            document.getElementById('app-favicon').href = base64;
+            document.getElementById('app-apple-touch-icon').href = base64;
+            
+            const preview = document.getElementById('settings-favicon-preview');
+            preview.src = base64;
+            preview.classList.remove('hidden');
+            document.getElementById('settings-favicon-placeholder').classList.add('hidden');
         };
 
         async function loadLogo() {
@@ -980,6 +1021,8 @@
             if (yearSnap.exists()) {
                 currentSchoolYear = yearSnap.data().val;
                 document.getElementById('school-year-select').value = currentSchoolYear;
+            } else {
+                currentSchoolYear = 'SY 2025-2026'; // Default Fallback
             }
             document.getElementById('print-year-label').textContent = currentSchoolYear;
 
